@@ -4,7 +4,7 @@ A simple, iOS, Image/Photo-viewer component for NativeScript based on the NYTPho
 NYTPhotoViewer is a slideshow and image viewer that includes double-tap to zoom, captions, support for multiple images, interactive flick to dismiss, animated zooming presentation, and more.
 
 ## Installation
-Run ```tns plugin add nativescript-photoviewer``` in your ROOT directory of your project.
+Run  ```npm i nativescript-photoviewer``` in your ROOT directory of your project.
 
 ## Limitations
 Currently no Android support, only iOS. If anyone is interested creating a Android version, feel free to do so.
