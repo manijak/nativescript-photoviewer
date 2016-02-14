@@ -2,7 +2,7 @@
   "name": "nativescript-photoviewer",
   "description": "A simple iOS Photo-viewer component for NativeScript based on NYTPhotoViewer cocoapod",
   "main": "index.js",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "nativescript": {
     "platforms": {
       "ios": "0.0.1"
