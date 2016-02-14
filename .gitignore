@@ -222,6 +222,7 @@ FakesAssemblies/
 # FAKE - F# Make
 .fake/
 
+.vscode/
 node_modules/
 demo/platforms/
 hooks/
