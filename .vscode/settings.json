@@ -9,5 +9,5 @@
 	"git.path": "https://github.com/manijak/nativescript-nytphotoviewer",
 
 	// Whether auto fetching is enabled.
-	"git.autofetch": true
+	"git.autofetch": false
 }
