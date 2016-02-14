@@ -21,7 +21,7 @@ If ```imageURL``` is set, then ```image``` is ignored. You can also customize fo
 
 ```js
 // Require the module
-var NYTPhotoViewer = require("nativescript-photoviewer");
+var PhotoViewer = require("nativescript-photoviewer");
 
 // Caption font-style settings (optional)
 photoViewer = new PhotoViewer();
