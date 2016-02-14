@@ -1,13 +1,8 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-	//-------- Git configuration --------
-
-	// Is git enabled
 	"git.enabled": true,
 
-	// Path to the git executable - uuhnb6oz3g23mwg7igkdbv336mhsdettatdham2rvbtpzhplf6nq
 	"git.path": "https://github.com/manijak/nativescript-nytphotoviewer",
 
-	// Whether auto fetching is enabled.
 	"git.autofetch": false
 }
