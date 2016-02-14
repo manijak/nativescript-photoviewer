@@ -1,7 +1,7 @@
 var imageSource = require("image-source");
 var frameModule = require("ui/frame");
 
-NYTPhotoViewer.prototype.showViewer = function(imagesArray) {
+PhotoViewer.prototype.showViewer = function(imagesArray) {
     var currentViewController = frameModule.topmost().currentPage;
     var photosArray = NSMutableArray.alloc().init();
     var that = this;
@@ -61,7 +61,7 @@ function attributedString(text, color, fontFamily, fontSize) {
     return NSAttributedString.alloc().initWithStringAttributes(attrString, attributeOptions);
 };
 
-NYTPhotoViewer.prototype.newNYTPhoto = function() {
+PhotoViewer.prototype.newNYTPhoto = function() {
     var newImage = NYTImage.alloc().init();
     return newImage;
 };
@@ -90,9 +90,9 @@ var NYTImage = NSObject.extend({
 });
 
 
-function NYTPhotoViewer() {
+function PhotoViewer() {
 
-    Object.defineProperty(NYTPhotoViewer.prototype, "ios", {
+    Object.defineProperty(PhotoViewer.prototype, "ios", {
         get: function () {
           return this._ios;
         },
@@ -100,7 +100,7 @@ function NYTPhotoViewer() {
         configurable: true
     });
 
-    Object.defineProperty(NYTPhotoViewer.prototype, "fontFamily", {
+    Object.defineProperty(PhotoViewer.prototype, "fontFamily", {
         get: function () {
           return this._fontFamily;
         },
@@ -112,7 +112,7 @@ function NYTPhotoViewer() {
     });
 
 
-    Object.defineProperty(NYTPhotoViewer.prototype, "titleFontSize", {
+    Object.defineProperty(PhotoViewer.prototype, "titleFontSize", {
         get: function () {
           return this._titleFontSize;
         },
@@ -122,7 +122,7 @@ function NYTPhotoViewer() {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(NYTPhotoViewer.prototype, "summaryFontSize", {
+    Object.defineProperty(PhotoViewer.prototype, "summaryFontSize", {
         get: function () {
           return this._summaryFontSize;
         },
@@ -132,7 +132,7 @@ function NYTPhotoViewer() {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(NYTPhotoViewer.prototype, "creditFontSize", {
+    Object.defineProperty(PhotoViewer.prototype, "creditFontSize", {
         get: function () {
           return this._creditFontSize;
         },
@@ -144,7 +144,7 @@ function NYTPhotoViewer() {
     });
 
     
-    Object.defineProperty(NYTPhotoViewer.prototype, "titleColor", {
+    Object.defineProperty(PhotoViewer.prototype, "titleColor", {
         get: function () {
           return this._titleColor;
         },
@@ -154,7 +154,7 @@ function NYTPhotoViewer() {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(NYTPhotoViewer.prototype, "summaryColor", {
+    Object.defineProperty(PhotoViewer.prototype, "summaryColor", {
         get: function () {
           return this._summaryColor;
         },
@@ -164,7 +164,7 @@ function NYTPhotoViewer() {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(NYTPhotoViewer.prototype, "creditColor", {
+    Object.defineProperty(PhotoViewer.prototype, "creditColor", {
         get: function () {
           return this._creditColor;
         },
@@ -176,8 +176,8 @@ function NYTPhotoViewer() {
     });
 
 
-    if (!this instanceof NYTPhotoViewer) { 
-        return new NYTPhotoViewer();
+    if (!this instanceof PhotoViewer) { 
+        return new PhotoViewer();
     }
 };
-module.exports = NYTPhotoViewer;
+module.exports = PhotoViewer;

@@ -1,7 +1,7 @@
 {
-  "name": "nativescript-nytphotoviewer",
+  "name": "nativescript-photoviewer",
   "description": "A simple iOS Photo-viewer component for NativeScript based on NYTPhotoViewer cocoapod",
-  "main": "nytphoto-viewer.js",
+  "main": "index.js",
   "version": "0.1.0",
   "nativescript": {
     "platforms": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/manijak/nativescript-nytphotoviewer.git"
+    "url": "https://github.com/manijak/nativescript-photoviewer.git"
   },
   "keywords": [
     "NativeScript", "Photo", "Photos", "Image", "Images", "Preview", "Gallery", "Development", "JavaScript", "iOS"
@@ -19,12 +19,12 @@
     "name": "Nedim Erkocevic"
   },
   "bugs": {
-    "url": "https://github.com/manijak/nativescript-nytphotoviewer/issues"
+    "url": "https://github.com/manijak/nativescript-photoviewer/issues"
   },
   "license": {
     "type": "APACHE",
-    "url": "https://github.com/manijak/nativescript-nytphotoviewer/blob/master/LICENSE"
+    "url": "https://github.com/manijak/nativescript-photoviewer/blob/master/LICENSE"
   },
-  "homepage": "https://github.com/manijak/nativescript-nytphotoviewer",
+  "homepage": "https://github.com/manijak/nativescript-photoviewer",
   "readmeFilename": "README.md"
 }

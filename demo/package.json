@@ -1,9 +1,9 @@
 {
 	"nativescript": {
-		"id": "org.nativescript.nytphotoviewer"
+		"id": "org.nativescript.photoviewer"
 	},
 	"dependencies": {
-		"nativescript-nytphotoviewer": "file:..",
+		"nativescript-photoviewer": "file:..",
 		"tns-core-modules": "1.5.2"
 	}
 }

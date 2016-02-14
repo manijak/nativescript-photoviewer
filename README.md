@@ -1,10 +1,10 @@
-# NativeScript NYTPhotoViewer
+# NativeScript PhotoViewer
 A simple, iOS, Image/Photo-viewer component for NativeScript based on the NYTPhotoViewer cocoapod: http://cocoadocs.org/docsets/NYTPhotoViewer/1.1.0/index.html
 
 NYTPhotoViewer is a slideshow and image viewer that includes double-tap to zoom, captions, support for multiple images, interactive flick to dismiss, animated zooming presentation, and more.
 
 ## Installation
-Run ```tns plugin add nativescript-nytphotoviewer``` in your ROOT directory of your project.
+Run ```tns plugin add nativescript-photoviewer``` in your ROOT directory of your project.
 
 ## Limitations
 Currently no Android support, only iOS. If anyone is interested creating a Android version, feel free to do so.
@@ -13,7 +13,7 @@ Currently no Android support, only iOS. If anyone is interested creating a Andro
 
 ```js
 // Simple usage with array of image-urls. See the Demo app for more advanced examples where you can add title and summary. 
-var NYTPhotoViewer = require("nativescript-nytphotoviewer");
+var NYTPhotoViewer = require("nativescript-photoviewer");
 var image1 = "https://somepage.com/image01.jpg";
 var image2 = "https://somepage.com/image02.jpg";
 var image3 = "https://somepage.com/image03.jpg";

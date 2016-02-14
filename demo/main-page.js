@@ -1,4 +1,4 @@
-var NYTPhotoViewer = require("nativescript-nytphotoviewer");
+var PhotoViewer = require("nativescript-photoviewer");
 var frameModule = require("ui/frame");
 var imageModule = require("ui/image");
 var photoViewer;
@@ -15,7 +15,7 @@ exports.galleryOpen = function(args){
 	var myImages = [image1, image2, image3, image4];
 
 	if(!photoViewer)
-		photoViewer = new NYTPhotoViewer();
+		photoViewer = new PhotoViewer();
 
 	photoViewer.showViewer(myImages);
 };
@@ -23,7 +23,7 @@ exports.galleryOpen = function(args){
 exports.galleryOpen2 = function(args){
 
 	if(!photoViewer)
-		photoViewer = new NYTPhotoViewer();
+		photoViewer = new PhotoViewer();
 
 	var testImage1 = photoViewer.newNYTPhoto();
 	var testImage2 = photoViewer.newNYTPhoto();
@@ -51,7 +51,7 @@ exports.galleryOpen2 = function(args){
 exports.galleryOpen3 = function(args){
 	
 	if(!photoViewer)
-		photoViewer = new NYTPhotoViewer();
+		photoViewer = new PhotoViewer();
 	
 	photoViewer.titleFontSize = 20;
 	photoViewer.creditFontSize = 14;
