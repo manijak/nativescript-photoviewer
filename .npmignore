@@ -1,0 +1,9 @@
+# generated files
+.vs
+.vs/
+nativescript-nytphotoviewer.sln
+.sln
+*.sln
+demo/
+*.webinfo
+photo_viewer.gif
