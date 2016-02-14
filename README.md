@@ -22,9 +22,9 @@ If ```imageURL``` is set, then ```image``` is ignored. You can also customize fo
 ```js
 // Require the module
 var PhotoViewer = require("nativescript-photoviewer");
+photoViewer = new PhotoViewer();
 
 // Caption font-style settings (optional)
-photoViewer = new PhotoViewer();
 photoViewer.fontFamily = "Avenir-Roman";
 photoViewer.titleFontSize = 20;
 photoViewer.summaryFontSize = 16;
