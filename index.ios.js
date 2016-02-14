@@ -12,15 +12,10 @@ PhotoViewer.prototype.showViewer = function(imagesArray) {
         
         if(typeof imageItem === 'object' && (imageItem instanceof NSObject && imageItem.conformsToProtocol(NYTPhoto))){
             //console.log('imageItem is of type NYTImage: ' + imageItem.conformsToProtocol(NYTPhoto));
-            nytImage.image = imageItem.image;
-            nytImage.imageData = imageItem.imageData;
-            nytImage.placeholderImage = imageItem.placeholderImage;
-            nytImage.attributedCaptionTitle = imageItem.attributedCaptionTitle;
-            nytImage.attributedCaptionSummary = imageItem.attributedCaptionSummary;
-            nytImage.attributedCaptionCredit = imageItem.attributedCaptionCredit;
+            nytImage = imageItem;
         }
         else if(typeof imageItem === 'object'){
-            //console.log('imageItem is of type object: ' + imageItem.title);
+            //console.log('imageItem is of type object - title: ' + imageItem.title);
             var fontFamily = that._fontFamily || "HelveticaNeue";
             var titleFontSize = that._titleFontSize || 16;
             var summaryFontSize = that._summaryFontSize || 14;
@@ -28,18 +23,19 @@ PhotoViewer.prototype.showViewer = function(imagesArray) {
             var titleColor = that._titleColor || UIColor.whiteColor();;
             var summaryColor = that._summaryColor || UIColor.lightGrayColor();;
             var creditColor = that._creditColor || UIColor.grayColor();;
-
-            nytImage.image = imageItem.image;
+	        
+            if(imageItem.imageURL)
+                nytImage.image = imageFromURL(imageItem.imageURL);
+            else
+                nytImage.image = imageItem.image;
+            
             nytImage.attributedCaptionTitle = attributedString(imageItem.title, titleColor, fontFamily, titleFontSize);
             nytImage.attributedCaptionSummary = attributedString(imageItem.summary, summaryColor, fontFamily, summaryFontSize);
             nytImage.attributedCaptionCredit = attributedString(imageItem.credit, creditColor, fontFamily, creditFontSize);
         }
         else if(typeof imageItem === 'string'){
             //console.log('imageItem is of type string: ' + imageItem);
-            var imageURL = NSURL.URLWithString(imageItem);
-            var imageData = NSData.dataWithContentsOfURL(imageURL);
-            var nativeImage = UIImage.imageWithData(imageData);
-            nytImage.image = nativeImage;
+            nytImage.image = imageFromURL(imageItem);
         }
 
         photosArray.addObject(nytImage);
@@ -53,12 +49,18 @@ PhotoViewer.prototype.showViewer = function(imagesArray) {
 };
 
 function attributedString(text, color, fontFamily, fontSize) {
-    var attrString = NSString.stringWithString(text);
+    var attrString = NSString.stringWithString(text || "");
     var attributeOptions = {
         [NSForegroundColorAttributeName]: color,
         [NSFontAttributeName]: UIFont.fontWithNameSize(fontFamily, fontSize)
     };
     return NSAttributedString.alloc().initWithStringAttributes(attrString, attributeOptions);
+};
+function imageFromURL(imageURL){
+    var nsURL = NSURL.URLWithString(imageURL);
+    var imageData = NSData.dataWithContentsOfURL(nsURL);
+    var nativeImage = UIImage.imageWithData(imageData);
+    return nativeImage;
 };
 
 PhotoViewer.prototype.newNYTPhoto = function() {
