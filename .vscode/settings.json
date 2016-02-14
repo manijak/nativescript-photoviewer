@@ -1,8 +1,0 @@
-// Place your settings in this file to overwrite default and user settings.
-{
-	"git.enabled": true,
-
-	"git.path": "https://github.com/manijak/nativescript-nytphotoviewer",
-
-	"git.autofetch": false
-}
