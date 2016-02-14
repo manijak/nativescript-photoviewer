@@ -2,7 +2,7 @@
   "name": "nativescript-photoviewer",
   "description": "A simple iOS Photo-viewer component for NativeScript based on NYTPhotoViewer cocoapod",
   "main": "index.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "nativescript": {
     "platforms": {
       "ios": "0.0.1"
@@ -13,7 +13,16 @@
     "url": "https://github.com/manijak/nativescript-photoviewer.git"
   },
   "keywords": [
-    "NativeScript", "Photo", "Photos", "Image", "Images", "Preview", "Gallery", "Development", "JavaScript", "iOS"
+    "NativeScript",
+    "Photo",
+    "Photos",
+    "Image",
+    "Images",
+    "Preview",
+    "Gallery",
+    "Development",
+    "JavaScript",
+    "iOS"
   ],
   "author": {
     "name": "Nedim Erkocevic"
