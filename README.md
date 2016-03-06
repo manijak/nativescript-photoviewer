@@ -67,6 +67,7 @@ photoViewer.showViewer(myImages);
 
 ## Screenshots
 ![Demo PNG](ns-nytphoto-1.png) ![Demo PNG](ns-nytphoto-2.png)
+![Demo PNG](photoview-android-1.png) ![Demo PNG](photoview-android-2.png)
 
 ## Help
 I will accept pull requests that improve this and assign credit. 
