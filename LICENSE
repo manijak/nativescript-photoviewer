@@ -1,8 +1,8 @@
 Copyright (c) 2016, Nedim Erkocevic - All JavaScript, any documentation, all the packaging, and support files.
 All my code is licensed under the Apache 2.0 License.
 
-The iOS (https://github.com/NYTimes/NYTPhotoViewer) library is also licensed by its respective author under the Apache 2.0 License.
- 
+The iOS (https://github.com/NYTimes/NYTPhotoViewer) and Android (https://github.com/lawloretienne/ImageGallery/) libraries are also licensed by its respective authors under the Apache 2.0 License.
+
 You may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 

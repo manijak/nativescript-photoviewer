@@ -8,8 +8,8 @@
   <Label text="Tap buttons to see NYTPhotoViewer in action" textWrap="true" margin="10,0,20,0"/>
   
   <Button text="Load images from URLs" tap="galleryOpen" />
-  <Button text="Load local images with NYTPhoto protocol" tap="galleryOpen2" />
-  <Button text="Load local images with options" tap="galleryOpen3" />
+  <Button text="Load local images with NYTPhoto protocol" tap="galleryOpen2" android:visibility="collapsed" />
+  <Button text="Load local images with options" tap="galleryOpen3" android:visibility="collapsed" />
 
 </StackLayout>
 </Page>

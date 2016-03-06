@@ -1,0 +1,10 @@
+android { 
+    productFlavors {
+        "nativescript-photoviewer" {
+            dimension "nativescript-photoviewer"
+        }
+    }
+}
+dependencies {
+  compile 'com.github.lawloretienne:imagegallery:0.0.13'
+}

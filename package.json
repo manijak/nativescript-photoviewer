@@ -1,11 +1,12 @@
 {
   "name": "nativescript-photoviewer",
-  "description": "A simple iOS Photo-viewer component for NativeScript based on NYTPhotoViewer cocoapod",
+  "description": "A simple Photo-viewer component for NativeScript based on NYTPhotoViewer pod for iOS and ImageGalleryViewer for Android.",
   "main": "index.js",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "nativescript": {
     "platforms": {
-      "ios": "0.0.1"
+      "ios": "0.0.1",
+      "android": "0.0.1"
     }
   },
   "repository": {
@@ -22,7 +23,8 @@
     "Gallery",
     "Development",
     "JavaScript",
-    "iOS"
+    "iOS",
+    "Android"
   ],
   "author": {
     "name": "Nedim Erkocevic"
