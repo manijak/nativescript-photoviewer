@@ -1,10 +1,15 @@
 # NativeScript PhotoViewer
 A simple image-viewer/gallery component for NativeScript. 
-The iOS part is based on the 'NYTPhotoViewer' pod: http://cocoadocs.org/docsets/NYTPhotoViewer/1.1.0/index.html
-The Android module is based on the 'ImageGallery' gradle: https://github.com/lawloretienne/ImageGallery/ 
 
-Since the plugin is based on two different libraries their features are also somewhat diferent:
+iOS | Android
+--- | --- 
+[NYTPhotoViewer](http://cocoadocs.org/docsets/NYTPhotoViewer/1.1.0/index.html) | [ImageGallery](https://github.com/lawloretienne/ImageGallery/)
+
+
+Since the plugin is based on two different libraries for two different platforms their features are also somewhat diferent:
+
 "NYTPhotoViewer" (iOS) is a slideshow and image viewer that includes double-tap to zoom, captions, support for multiple images, interactive flick to dismiss, animated zooming presentation, and more.
+
 "ImageGallery" (Android) is a gallery used to host an array of external images (array of urls). It supports multiple images, double-tap to zoom and a gallery view. 
 
 ## Installation
