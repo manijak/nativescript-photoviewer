@@ -1,5 +1,6 @@
 var imageSource = require("image-source");
 var frameModule = require("ui/frame");
+var colorModule = require("color");
 
 PhotoViewer.prototype.showViewer = function(imagesArray) {
     var currentViewController = frameModule.topmost().currentPage;
@@ -20,9 +21,9 @@ PhotoViewer.prototype.showViewer = function(imagesArray) {
             var titleFontSize = that._titleFontSize || 16;
             var summaryFontSize = that._summaryFontSize || 14;
             var creditFontSize = that._creditFontSize || 14;
-            var titleColor = that._titleColor || UIColor.whiteColor();;
-            var summaryColor = that._summaryColor || UIColor.lightGrayColor();;
-            var creditColor = that._creditColor || UIColor.grayColor();;
+            var titleColor = that._titleColor || new colorModule.Color("white").ios;
+            var summaryColor = that._summaryColor || new colorModule.Color("lightgray").ios;
+            var creditColor = that._creditColor || new colorModule.Color("gray").ios;
 	        
             if(imageItem.imageURL)
                 nytImage.image = imageFromURL(imageItem.imageURL);
