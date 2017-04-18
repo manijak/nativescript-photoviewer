@@ -2,7 +2,7 @@
   "name": "nativescript-photoviewer",
   "description": "A simple Photo-viewer component for NativeScript based on NYTPhotoViewer pod for iOS and ImageGalleryViewer for Android.",
   "main": "index.js",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "nativescript": {
     "platforms": {
       "ios": "0.0.1",
@@ -32,10 +32,7 @@
   "bugs": {
     "url": "https://github.com/manijak/nativescript-photoviewer/issues"
   },
-  "license": {
-    "type": "APACHE",
-    "url": "https://github.com/manijak/nativescript-photoviewer/blob/master/LICENSE"
-  },
+  "license": "MIT",
   "homepage": "https://github.com/manijak/nativescript-photoviewer",
   "readmeFilename": "README.md"
 }
