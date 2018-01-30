@@ -2,7 +2,7 @@ var imageSource = require("image-source");
 var frameModule = require("ui/frame");
 var colorModule = require("color");
 
-PhotoViewer.prototype.showViewer = function(imagesArray) {
+PhotoViewer.prototype.showViewer = function(imagesArray, startIndex) {
     var currentViewController = frameModule.topmost().currentPage;
     var photosArray = NSMutableArray.alloc().init();
     var that = this;
@@ -42,11 +42,12 @@ PhotoViewer.prototype.showViewer = function(imagesArray) {
         photosArray.addObject(nytImage);
     });
 
-    var photosViewController = NYTPhotosViewController.alloc().initWithPhotos(photosArray);
+    var dataSource = NYTPhotoViewerArrayDataSource.dataSourceWithPhotos(photosArray);
+    startIndex = startIndex ? startIndex : 0;
+    var photosViewController = NYTPhotosViewController.alloc().initWithDataSourceInitialPhotoIndexDelegate(dataSource, startIndex, null);
     this._ios = photosViewController;
 
-    //photosViewController.view.backgroundColor = UIColor.whiteColor();
-    currentViewController.ios.presentViewControllerAnimatedCompletion(photosViewController, true, null);
+    UIApplication.sharedApplication.keyWindow.rootViewController.presentViewControllerAnimatedCompletion(photosViewController, true, null);
 };
 
 function attributedString(text, color, fontFamily, fontSize) {
