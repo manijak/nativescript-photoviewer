@@ -20,13 +20,15 @@ Captions only available on iOS. Android only supports array of string urls as da
 
 ## Usage
 The usage is very simple. Require "nativescript-photoviewer" module and create a instance of it. Call the ```showViewer(array)``` function to present the photoViewer. 
-The ```showViewer()``` function accept a singe parameter, an array. The array can contain one, or a mixture, of the following types:
+The ```showViewer(ARRAY, <INDEX>)``` function accepts a two parameters on iOS and one on Android. The first one is allways an Array. The Array can contain one, or a mixture, of the following types:
 - String URLs that point to external images (iOS & Android)
 - Custom defined objects that contain image-data (image/imageURL, title, summary, credit) (iOS only)
 - Objects that conform to the ```NYTPhoto``` protocol (see the cocoapod documentation for more info - very similar to the above option) (iOS only)
 
 When using the second option, properties that one can use are defined below in the second example. The ```image``` conforms to the UIImage object, while the ```imageURL``` is a string containing the URL of the image.
 If ```imageURL``` is set, then ```image``` is ignored. You can also customize fontFamily, fontSize and color of the caption texts. FontFamily applies to all captions, size and color are caption-specific.  
+
+The second parameter is only for iOS, and is an optional `index` of the image, so that the gallery can focus on that image when loaded. 
 
 ```js
 // Require the module
@@ -64,6 +66,11 @@ var imageFromURL2 = "https://somepage.com/image02.jpg";
 var myImages = [testImage1, testImage2, imageFromURL1, imageFromURL2];
 photoViewer.showViewer(myImages);
 ```
+## Changelog
+** 1.3.0 **
+- Updated iOS pod to newer version (fixed minor breaking changes)
+- Added a second paramter to the `showViewer(ARRAY, INDEX?)` function. Makes the gallery init on that image: `photoViewer.showViewer(myImages, 2);`
+
 
 ## Screenshots
 ![Demo PNG](ns-nytphoto-1.png) ![Demo PNG](ns-nytphoto-2.png)
