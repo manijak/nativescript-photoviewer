@@ -1,9 +1,15 @@
 {
 	"nativescript": {
-		"id": "org.nativescript.photoviewer"
+		"id": "org.nativescript.photoviewer",
+		"tns-android": {
+			"version": "3.4.1"
+		},
+		"tns-ios": {
+			"version": "3.4.1"
+		}
 	},
 	"dependencies": {
-		"nativescript-photoviewer": "file:..",
-		"tns-core-modules": "1.5.2"
+		"nativescript-photoviewer": "1.4.0",
+		"tns-core-modules": "3.4.1"
 	}
 }

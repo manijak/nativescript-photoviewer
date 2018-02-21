@@ -1,0 +1,15 @@
+{
+	"name": "photodemo",
+	"main": "app.js",
+	"version": "2.0",
+	"author": "Nedim Erkocevic",
+	"description": "PhotoViewer Demo",
+	"license": "MIT",
+	"keywords": [
+	],
+	"android": {
+		"v8Flags": "--expose_gc",
+		"memoryCheckInterval": 500,
+		"freeMemoryRatio": 0.5
+	}
+}
