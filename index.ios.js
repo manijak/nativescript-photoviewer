@@ -2,10 +2,13 @@ var imageSource = require("image-source");
 var frameModule = require("ui/frame");
 var colorModule = require("color");
 
-PhotoViewer.prototype.showViewer = function(imagesArray, startIndex, completitionCallback) {
+PhotoViewer.prototype.showViewer = function(imagesArray) {
     var currentViewController = frameModule.topmost().currentPage;
     var photosArray = NSMutableArray.alloc().init();
     var that = this;
+
+    var startIndex = that._startIndex || 0;
+    var completitionCallback = that._completitionCallback || null;
 
     imagesArray.forEach(function(imageItem) {
         
@@ -43,7 +46,6 @@ PhotoViewer.prototype.showViewer = function(imagesArray, startIndex, completitio
     });
 
     var dataSource = NYTPhotoViewerArrayDataSource.dataSourceWithPhotos(photosArray);
-    startIndex = startIndex ? startIndex : 0;
     var self = frameModule.topmost().ios;
     var photosViewController = NYTPhotosViewController.alloc().initWithDataSourceInitialPhotoIndexDelegate(dataSource, startIndex, self);
     UIApplication.sharedApplication.keyWindow.rootViewController.presentViewControllerAnimatedCompletion(photosViewController, true, completitionCallback);
@@ -177,6 +179,28 @@ function PhotoViewer() {
         },
         set: function (value) {
           this._creditColor = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+
+    Object.defineProperty(PhotoViewer.prototype, "startIndex", {
+        get: function () {
+          return this._startIndex;
+        },
+        set: function (value) {
+          this._startIndex = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+
+    Object.defineProperty(PhotoViewer.prototype, "completitionCallback", {
+        get: function () {
+          return this._completitionCallback;
+        },
+        set: function (value) {
+          this._completitionCallback = value;
         },
         enumerable: true,
         configurable: true

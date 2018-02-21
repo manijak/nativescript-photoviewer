@@ -1,22 +1,29 @@
 var frameModule = require("ui/frame");
 
-PhotoViewer.prototype.showViewer = function(imagesArray, startIndex, completitionCallback, paletteType) {
+PhotoViewer.prototype.showViewer = function(imagesArray) {
     var photosArray = new java.util.ArrayList();
     
     imagesArray.forEach(function(imgUrl){         
         photosArray.add(imgUrl);
     });
 
-    startIndex = startIndex ? startIndex : 0;
+    var startIndex = this._startIndex || 0;
+    var paletteType = this._paletteType || null ;
+    var showAlbum = this._showAlbum || false;
     var activity = frameModule.topmost().android.activity;
-    var intent = new android.content.Intent(activity, com.etiennelawlor.imagegallery.library.activities.FullScreenImageGalleryActivity.class);
-    intent.putStringArrayListExtra("images", photosArray);
-    intent.putExtra("position", startIndex);
+
+    if(!showAlbum)
+        _android = new android.content.Intent(activity, com.etiennelawlor.imagegallery.library.activities.FullScreenImageGalleryActivity.class);
+    else
+        _android = new android.content.Intent(activity, com.etiennelawlor.imagegallery.library.activities.ImageGalleryActivity.class);
+
+    _android.putStringArrayListExtra("images", photosArray);
+    _android.putExtra("position", startIndex);
 
     if(paletteType)
-        intent.putExtra("palette_color_type", getPaletteType(paletteType));
+        _android.putExtra("palette_color_type", getPaletteType(paletteType));
     
-    activity.startActivity(intent);
+    activity.startActivity(_android);
 };
 
 function getPaletteType(paletteType){
@@ -46,6 +53,48 @@ function getPaletteType(paletteType){
 }
 
 function PhotoViewer() {
+
+    Object.defineProperty(PhotoViewer.prototype, "android", {
+        get: function () {
+          return this._android;
+        },
+        enumerable: true,
+        configurable: true
+    });
+
+    Object.defineProperty(PhotoViewer.prototype, "startIndex", {
+        get: function () {
+          return this._startIndex;
+        },
+        set: function (value) {
+          this._startIndex = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+
+    Object.defineProperty(PhotoViewer.prototype, "paletteType", {
+        get: function () {
+          return this._paletteType;
+        },
+        set: function (value) {
+          this._paletteType = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+
+    Object.defineProperty(PhotoViewer.prototype, "showAlbum", {
+        get: function () {
+          return this._showAlbum;
+        },
+        set: function (value) {
+          this._showAlbum = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+
     if (!this instanceof PhotoViewer) { 
         return new PhotoViewer();
     }
