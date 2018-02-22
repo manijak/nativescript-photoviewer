@@ -47,46 +47,51 @@ You can also customize fontFamily, fontSize and color of the caption texts (iOS)
 **Methods:**
 - `showViewer(array)`: Method to call when you want to show the gallery. Mandatory param is an array of image urls or a custom image-object (iOS).
 
-```js
-// Require the module
-var PhotoViewer = require("nativescript-photoviewer");
-photoViewer = new PhotoViewer();
+```typescript
+// Include the module
+const PhotoViewer = require("nativescript-photoviewer");
 
-// Caption font-style settings (optional - iOS only)
-photoViewer.fontFamily = "Avenir-Roman";
-photoViewer.titleFontSize = 20;
-photoViewer.summaryFontSize = 16;
-photoViewer.creditFontSize = 14;
-photoViewer.titleColor = new colorModule.Color("#fff").ios;
-photoViewer.summaryColor = new colorModule.Color("#99813c").ios;
-photoViewer.creditColor = new colorModule.Color("#fed700").ios;
+// Show gallery from event
+export function openGallery(args: EventData){
 
-photoViewer.completitionCallback = galleryLoaded; // iOS only
-photoViewer.paletteType = "LIGHT_MUTED"; // Android only
-photoViewer.showAlbum = false; // Android only (true = shows album first, false = shows fullscreen gallery directly)
-photoViewer.startIndex = 0; // start index for the fullscreen gallery
+    let photoViewer = new PhotoViewer();
 
-// Image from object (iOS only)
-var testImage1 = {
-    imageURL: "https://somepage.com/image01.jpg",
-    title: "Image 1 title",
-    summary: "Image 1 summary",
-    credit: "Telerik"
-};
-var testImage2 = {
-    imageURL: "https://somepage.com/image01.jpg",
-    title: "Image 2 title",
-    summary: "Image 2 summary",
-    credit: "Telerik"
-};
+    // Caption font-style settings (optional - iOS only)
+    photoViewer.fontFamily = "Avenir-Roman";
+    photoViewer.titleFontSize = 20;
+    photoViewer.summaryFontSize = 16;
+    photoViewer.creditFontSize = 14;
+    photoViewer.titleColor = new colorModule.Color("#fff").ios;
+    photoViewer.summaryColor = new colorModule.Color("#99813c").ios;
+    photoViewer.creditColor = new colorModule.Color("#fed700").ios;
 
-//Image from URLs (Android & iOS)
-var imageFromURL1 = "https://somepage.com/image01.jpg";
-var imageFromURL2 = "https://somepage.com/image02.jpg";
+    photoViewer.completitionCallback = galleryLoaded; // iOS only
+    photoViewer.paletteType = "LIGHT_MUTED"; // Android only
+    photoViewer.showAlbum = false; // Android only (true = shows album first, false = shows fullscreen gallery directly)
+    photoViewer.startIndex = 0; // start index for the fullscreen gallery
 
-// Add to array and pass to showViewer
-var myImages = [testImage1, testImage2, imageFromURL1, imageFromURL2];
-photoViewer.showViewer(myImages);
+    // Image from object (iOS only)
+    var testImage1 = {
+        imageURL: "https://somepage.com/image01.jpg",
+        title: "Image 1 title",
+        summary: "Image 1 summary",
+        credit: "Telerik"
+    };
+    var testImage2 = {
+        imageURL: "https://somepage.com/image01.jpg",
+        title: "Image 2 title",
+        summary: "Image 2 summary",
+        credit: "Telerik"
+    };
+
+    //Image from URLs (Android & iOS)
+    var imageFromURL1 = "https://somepage.com/image01.jpg";
+    var imageFromURL2 = "https://somepage.com/image02.jpg";
+
+    // Add to array and pass to showViewer
+    var myImages = [testImage1, testImage2, imageFromURL1, imageFromURL2];
+    photoViewer.showViewer(myImages);
+}
 
 function galleryShowing(){
     console.log(`gallery Loaded`);
