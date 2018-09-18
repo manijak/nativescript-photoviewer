@@ -35,7 +35,7 @@ You can also customize fontFamily, fontSize and color of the caption texts (iOS)
 
 **Properties iOS (Optional):**
 - `startIndex`: Optional index to start the gallery from (Fullscreen Image gallery only)
-- `completitionCallback` Optional function to run after the gallery has done loading images and is showing
+- `completionCallback` Optional function to run after the gallery has finished loading images and is visible
 - `fontFamily` (string): Font familiy to use for caption and titles
 - `titleFontSize` (number): Font-size for title
 - `summaryFontSize` (number): Font-size for summary-title
@@ -65,7 +65,7 @@ export function openGallery(args: EventData){
     photoViewer.summaryColor = new colorModule.Color("#99813c").ios;
     photoViewer.creditColor = new colorModule.Color("#fed700").ios;
 
-    photoViewer.completitionCallback = galleryLoaded; // iOS only
+    photoViewer.completionCallback = galleryLoaded; // iOS only
     photoViewer.paletteType = "LIGHT_MUTED"; // Android only
     photoViewer.showAlbum = false; // Android only (true = shows album first, false = shows fullscreen gallery directly)
     photoViewer.startIndex = 0; // start index for the fullscreen gallery
@@ -101,7 +101,7 @@ function galleryShowing(){
 ## Changelog
 **1.4.0**
 - Moved param for index to a property: `startIndex`
-- (iOS) Added property to set completitionCallback
+- (iOS) Added property to set completionCallback
 - (Android) Added option to show album first or go directly to fullscreen slides. More similar to iOS.
 - (Android) Added property to set background color palette for fullscreen slides.
 - Fixed demo app
