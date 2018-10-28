@@ -5,7 +5,6 @@
     <activity  
         android:name="com.etiennelawlor.imagegallery.library.activities.ImageGalleryActivity"
         android:configChanges="orientation|keyboardHidden|screenSize"
-        android:label=""
         android:theme="@style/ImageGalleryTheme" />
   </application>
 
