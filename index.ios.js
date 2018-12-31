@@ -8,10 +8,9 @@ PhotoViewer.prototype.showViewer = function(imagesArray) {
     var that = this;
 
     var startIndex = that._startIndex || 0;
-    var completitionCallback = that._completitionCallback || null;
+    var completionCallback = that._completionCallback || null;
 
     imagesArray.forEach(function(imageItem) {
-        
         var nytImage = NYTImage.alloc().init();
         
         if(typeof imageItem === 'object' && (imageItem instanceof NSObject && imageItem.conformsToProtocol(NYTPhoto))){
@@ -46,9 +45,11 @@ PhotoViewer.prototype.showViewer = function(imagesArray) {
     });
 
     var dataSource = NYTPhotoViewerArrayDataSource.dataSourceWithPhotos(photosArray);
+
     var self = frameModule.topmost().ios;
+
     var photosViewController = NYTPhotosViewController.alloc().initWithDataSourceInitialPhotoIndexDelegate(dataSource, startIndex, self);
-    UIApplication.sharedApplication.keyWindow.rootViewController.presentViewControllerAnimatedCompletion(photosViewController, true, completitionCallback);
+    frameModule.topmost().viewController.presentViewControllerAnimatedCompletion(photosViewController, true, completionCallback);
     
     this._ios = photosViewController;
 };
@@ -195,12 +196,12 @@ function PhotoViewer() {
         configurable: true
     });
 
-    Object.defineProperty(PhotoViewer.prototype, "completitionCallback", {
+    Object.defineProperty(PhotoViewer.prototype, "completionCallback", {
         get: function () {
-          return this._completitionCallback;
+          return this._completionCallback;
         },
         set: function (value) {
-          this._completitionCallback = value;
+          this._completionCallback = value;
         },
         enumerable: true,
         configurable: true
