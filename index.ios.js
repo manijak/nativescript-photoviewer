@@ -12,7 +12,7 @@ PhotoViewer.prototype.showViewer = function(imagesArray) {
 
     imagesArray.forEach(function(imageItem) {
         var nytImage = NYTImage.alloc().init();
-        
+
         if(typeof imageItem === 'object' && (imageItem instanceof NSObject && imageItem.conformsToProtocol(NYTPhoto))){
             //console.log('imageItem is of type NYTImage: ' + imageItem.conformsToProtocol(NYTPhoto));
             nytImage = imageItem;
@@ -26,12 +26,12 @@ PhotoViewer.prototype.showViewer = function(imagesArray) {
             var titleColor = that._titleColor || new colorModule.Color("white").ios;
             var summaryColor = that._summaryColor || new colorModule.Color("lightgray").ios;
             var creditColor = that._creditColor || new colorModule.Color("gray").ios;
-	        
+
             if(imageItem.imageURL)
                 nytImage.image = imageFromURL(imageItem.imageURL);
             else
                 nytImage.image = imageItem.image;
-            
+
             nytImage.attributedCaptionTitle = attributedString(imageItem.title, titleColor, fontFamily, titleFontSize);
             nytImage.attributedCaptionSummary = attributedString(imageItem.summary, summaryColor, fontFamily, summaryFontSize);
             nytImage.attributedCaptionCredit = attributedString(imageItem.credit, creditColor, fontFamily, creditFontSize);
@@ -44,13 +44,13 @@ PhotoViewer.prototype.showViewer = function(imagesArray) {
         photosArray.addObject(nytImage);
     });
 
-    var dataSource = NYTPhotoViewerArrayDataSource.dataSourceWithPhotos(photosArray);
+    this._iosDatasource = NYTPhotoViewerArrayDataSource.dataSourceWithPhotos(photosArray);
 
     var self = frameModule.topmost().ios;
 
-    var photosViewController = NYTPhotosViewController.alloc().initWithDataSourceInitialPhotoIndexDelegate(dataSource, startIndex, self);
+    var photosViewController = NYTPhotosViewController.alloc().initWithDataSourceInitialPhotoIndexDelegate(this._iosDatasource, startIndex, self);
     frameModule.topmost().viewController.presentViewControllerAnimatedCompletion(photosViewController, true, completionCallback);
-    
+
     this._ios = photosViewController;
 };
 
@@ -153,7 +153,7 @@ function PhotoViewer() {
         configurable: true
     });
 
-    
+
     Object.defineProperty(PhotoViewer.prototype, "titleColor", {
         get: function () {
           return this._titleColor;
@@ -208,7 +208,7 @@ function PhotoViewer() {
     });
 
 
-    if (!this instanceof PhotoViewer) { 
+    if (!this instanceof PhotoViewer) {
         return new PhotoViewer();
     }
 };

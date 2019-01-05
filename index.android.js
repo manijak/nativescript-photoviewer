@@ -2,8 +2,8 @@ var frameModule = require("ui/frame");
 
 PhotoViewer.prototype.showViewer = function(imagesArray) {
     var photosArray = new java.util.ArrayList();
-    
-    imagesArray.forEach(function(imgUrl){         
+
+    imagesArray.forEach(function(imgUrl){
         photosArray.add(imgUrl);
     });
 
@@ -13,17 +13,17 @@ PhotoViewer.prototype.showViewer = function(imagesArray) {
     var activity = frameModule.topmost().android.activity;
 
     if(!showAlbum)
-        _android = new android.content.Intent(activity, com.etiennelawlor.imagegallery.library.activities.FullScreenImageGalleryActivity.class);
+        this._android = new android.content.Intent(activity, com.etiennelawlor.imagegallery.library.activities.FullScreenImageGalleryActivity.class);
     else
-        _android = new android.content.Intent(activity, com.etiennelawlor.imagegallery.library.activities.ImageGalleryActivity.class);
+        this._android = new android.content.Intent(activity, com.etiennelawlor.imagegallery.library.activities.ImageGalleryActivity.class);
 
-    _android.putStringArrayListExtra("images", photosArray);
-    _android.putExtra("position", startIndex);
+    this._android.putStringArrayListExtra("images", photosArray);
+    this._android.putExtra("position", startIndex);
 
     if(paletteType)
-        _android.putExtra("palette_color_type", getPaletteType(paletteType));
-    
-    activity.startActivity(_android);
+        this._android.putExtra("palette_color_type", getPaletteType(paletteType));
+
+    activity.startActivity(this._android);
 };
 
 function getPaletteType(paletteType){
@@ -95,7 +95,7 @@ function PhotoViewer() {
         configurable: true
     });
 
-    if (!this instanceof PhotoViewer) { 
+    if (!this instanceof PhotoViewer) {
         return new PhotoViewer();
     }
 };
