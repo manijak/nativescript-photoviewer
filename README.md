@@ -1,3 +1,6 @@
+[![npm](https://img.shields.io/npm/v/nativescript-photoviewer.svg)](https://www.npmjs.com/package/nativescript-photoviewer)
+[![npm](https://img.shields.io/npm/dt/nativescript-photoviewer.svg?label=npm%20downloads)](https://www.npmjs.com/package/nativescript-photoviewer)
+
 # NativeScript PhotoViewer
 A simple image-viewer/gallery component for NativeScript. 
 
