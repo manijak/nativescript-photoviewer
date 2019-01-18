@@ -3,7 +3,7 @@ A simple image-viewer/gallery component for NativeScript.
 
 iOS | Android
 --- | --- 
-[NYTPhotoViewer](http://cocoadocs.org/docsets/NYTPhotoViewer/1.1.0/index.html) | [ImageGallery](https://github.com/lawloretienne/ImageGallery/)
+[NYTPhotoViewer](https://github.com/NYTimes/NYTPhotoViewer) | [ImageGallery](https://github.com/lawloretienne/ImageGallery/)
 
 
 Since the plugin is based on two different libraries for two different platforms their features are also somewhat diferent:
@@ -99,6 +99,12 @@ function galleryShowing(){
 ```
 
 ## Changelog
+**1.5.0**
+- Photo Viewer now works inside Modal Views, typo fix for 'completionCallback'. Big thanks to @Eonfuzz
+- Fixed the iOS datasource to be more strong referenced & the _android ref. Big thanks to @miex0r
+- Known issue: [iOS]If loading high-res images via urls, the images are being loaded **before** the gallery is shown. So the UI might freeze. A workaround for this could be to use the `completionCallback` and show a spinner when opening the gallery. 
+
+
 **1.4.0**
 - Moved param for index to a property: `startIndex`
 - (iOS) Added property to set completionCallback

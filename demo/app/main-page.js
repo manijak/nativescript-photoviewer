@@ -1,5 +1,4 @@
 var PhotoViewer = require("nativescript-photoviewer");
-var frameModule = require("ui/frame");
 var imageSourceModule = require("image-source");
 var colorModule = require("color");
 var photoViewer;
@@ -12,16 +11,16 @@ function galleryLoaded(){
 
 exports.galleryOpen = function(args){
 
-	var image1 = "https://raw.githubusercontent.com/manijak/nativescript-photoviewer/master/demo/res/01.jpg";
-	var image2 = "https://raw.githubusercontent.com/manijak/nativescript-photoviewer/master/demo/res/02.jpg";
-	var image3 = "https://raw.githubusercontent.com/manijak/nativescript-photoviewer/master/demo/res/03.jpg";
-    var image4 = "https://raw.githubusercontent.com/manijak/nativescript-photoviewer/master/demo/res/04.jpg";
+	var image1 = "https://github.com/manijak/nativescript-photoviewer/raw/master/demo/app/res/01.jpg";
+	var image2 = "https://github.com/manijak/nativescript-photoviewer/raw/master/demo/app/res/02.jpg";
+	var image3 = "https://github.com/manijak/nativescript-photoviewer/raw/master/demo/app/res/03.jpg";
+	var image4 = "https://github.com/manijak/nativescript-photoviewer/raw/master/demo/app/res/04.jpg";
 	var myImages = [image1, image2, image3, image4];
 
 	if(!photoViewer)
 		photoViewer = new PhotoViewer();
 
-	photoViewer.completitionCallback = galleryLoaded; // iOS only
+	photoViewer.completionCallback = galleryLoaded; // iOS only
 	photoViewer.paletteType = "LIGHT_MUTED"; // Android only
 	photoViewer.showAlbum = false; // Android only (true = shows album first, false = shows fullscreen gallery directly)
 	photoViewer.startIndex = 0; // start index for the fullscreen gallery
@@ -34,7 +33,7 @@ exports.galleryOpen2 = function(args){
 	if(!photoViewer)
 		photoViewer = new PhotoViewer();
 
-	photoViewer.completitionCallback = galleryLoaded;
+	photoViewer.completionCallback = galleryLoaded;
 	photoViewer.startIndex = 1; // start index for the fullscreen gallery
 
 	var testImage1 = photoViewer.newNYTPhoto();
@@ -68,7 +67,7 @@ exports.galleryOpen3 = function(args){
 	photoViewer.summaryColor = new colorModule.Color("#99813c").ios;
 	photoViewer.creditColor = new colorModule.Color("#fed700").ios;
 
-	photoViewer.completitionCallback = galleryLoaded;
+	photoViewer.completionCallback = galleryLoaded;
 	photoViewer.startIndex = 0; // start index for the fullscreen gallery
 
 	var image1 = imageSourceModule.fromFile("~/res/01.jpg");

@@ -1,9 +1,7 @@
-var imageSource = require("image-source");
 var frameModule = require("ui/frame");
 var colorModule = require("color");
 
 PhotoViewer.prototype.showViewer = function(imagesArray) {
-    var currentViewController = frameModule.topmost().currentPage;
     var photosArray = NSMutableArray.alloc().init();
     var that = this;
 
