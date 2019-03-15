@@ -1,0 +1,5 @@
+*.map
+*.ts
+!photoviewer.*.d.ts
+!index.d.ts
+tsconfig.json
