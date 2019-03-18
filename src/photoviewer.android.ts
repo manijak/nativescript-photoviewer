@@ -1,23 +1,21 @@
-/// <reference path="./node_modules/tns-platform-declarations/android.d.ts" />
-
+import { PhotoViewerOptions, PaletteType } from ".";
 import { topmost } from 'tns-core-modules/ui/frame';
-import { PhotoViewerOptions, PaletteType } from "./photoviewer.common";
 
 declare const com: any;
 
 function getPaletteType(paletteType: PaletteType){
     switch (paletteType) {
-        case PaletteType.VIBRANT:
+        case PaletteType.Vibrant:
             return com.etiennelawlor.imagegallery.library.enums.PaletteColorType.VIBRANT;
-        case PaletteType.LIGHT_VIBRANT:
+        case PaletteType.LightVibrant:
             return com.etiennelawlor.imagegallery.library.enums.PaletteColorType.LIGHT_VIBRANT;
-        case PaletteType.DARK_VIBRANT:
+        case PaletteType.DarkVibrant:
             return com.etiennelawlor.imagegallery.library.enums.PaletteColorType.DARK_VIBRANT;
-        case PaletteType.MUTED:
+        case PaletteType.Muted:
             return com.etiennelawlor.imagegallery.library.enums.PaletteColorType.MUTED;
-        case PaletteType.LIGHT_MUTED:
+        case PaletteType.LightMuted:
             return com.etiennelawlor.imagegallery.library.enums.PaletteColorType.LIGHT_MUTED;
-        case PaletteType.DARK_MUTED:
+        case PaletteType.DarkMuted:
             return com.etiennelawlor.imagegallery.library.enums.PaletteColorType.DARK_MUTED;
         default:
             return null;

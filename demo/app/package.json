@@ -1,5 +1,5 @@
 {
-	"name": "photodemo",
+	"name": "photoviewer-demo",
 	"main": "app.js",
 	"version": "2.0",
 	"author": "Nedim Erkocevic",

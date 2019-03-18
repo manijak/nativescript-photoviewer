@@ -7,7 +7,9 @@
     "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "sourceMap": false,
+    "skipLibCheck": true,
+    "lib": ["es6", "dom"],
+    "sourceMap": true,
     "pretty": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
@@ -16,13 +18,7 @@
     "noImplicitAny": false,
     "noImplicitReturns": true,
     "noImplicitUseStrict": false,
-    "noFallthroughCasesInSwitch": true,
-    "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules"
-    ],
-    "types": [
-    ]
+    "noFallthroughCasesInSwitch": true
   },
   "exclude": [
     "demo",

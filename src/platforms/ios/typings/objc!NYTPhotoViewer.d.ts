@@ -28,11 +28,11 @@ declare class NYTPhotoCaptionView extends UIView implements NYTPhotoCaptionViewL
 
 	static appearanceForTraitCollectionWhenContainedIn(trait: UITraitCollection, ContainerClass: typeof NSObject): NYTPhotoCaptionView; // inherited from UIAppearance
 
-	static appearanceForTraitCollectionWhenContainedInInstancesOfClasses(trait: UITraitCollection, containerTypes: NSArray<typeof NSObject>): NYTPhotoCaptionView; // inherited from UIAppearance
+	static appearanceForTraitCollectionWhenContainedInInstancesOfClasses(trait: UITraitCollection, containerTypes: NSArray<typeof NSObject> | typeof NSObject[]): NYTPhotoCaptionView; // inherited from UIAppearance
 
 	static appearanceWhenContainedIn(ContainerClass: typeof NSObject): NYTPhotoCaptionView; // inherited from UIAppearance
 
-	static appearanceWhenContainedInInstancesOfClasses(containerTypes: NSArray<typeof NSObject>): NYTPhotoCaptionView; // inherited from UIAppearance
+	static appearanceWhenContainedInInstancesOfClasses(containerTypes: NSArray<typeof NSObject> | typeof NSObject[]): NYTPhotoCaptionView; // inherited from UIAppearance
 
 	static new(): NYTPhotoCaptionView; // inherited from NSObject
 
@@ -354,7 +354,7 @@ declare class NYTPhotoViewerArrayDataSource extends NSObject implements NSFastEn
 
 	static alloc(): NYTPhotoViewerArrayDataSource; // inherited from NSObject
 
-	static dataSourceWithPhotos(photos: NSMutableArray<NYTPhoto>): NYTPhotoViewerArrayDataSource;
+	static dataSourceWithPhotos(photos: NSArray<NYTPhoto> | NYTPhoto[]): NYTPhotoViewerArrayDataSource;
 
 	static new(): NYTPhotoViewerArrayDataSource; // inherited from NSObject
 
@@ -364,11 +364,11 @@ declare class NYTPhotoViewerArrayDataSource extends NSObject implements NSFastEn
 	[index: number]: NYTPhoto;
 	[Symbol.iterator](): Iterator<any>;
 
-	constructor(o: { photos: NSArray<NYTPhoto>; });
+	constructor(o: { photos: NSArray<NYTPhoto> | NYTPhoto[]; });
 
 	indexOfPhoto(photo: NYTPhoto): number;
 
-	initWithPhotos(photos: NSArray<NYTPhoto>): this;
+	initWithPhotos(photos: NSArray<NYTPhoto> | NYTPhoto[]): this;
 
 	objectAtIndexedSubscript(idx: number): NYTPhoto;
 
@@ -431,11 +431,11 @@ declare class NYTPhotosOverlayView extends UIView {
 
 	static appearanceForTraitCollectionWhenContainedIn(trait: UITraitCollection, ContainerClass: typeof NSObject): NYTPhotosOverlayView; // inherited from UIAppearance
 
-	static appearanceForTraitCollectionWhenContainedInInstancesOfClasses(trait: UITraitCollection, containerTypes: NSArray<typeof NSObject>): NYTPhotosOverlayView; // inherited from UIAppearance
+	static appearanceForTraitCollectionWhenContainedInInstancesOfClasses(trait: UITraitCollection, containerTypes: NSArray<typeof NSObject> | typeof NSObject[]): NYTPhotosOverlayView; // inherited from UIAppearance
 
 	static appearanceWhenContainedIn(ContainerClass: typeof NSObject): NYTPhotosOverlayView; // inherited from UIAppearance
 
-	static appearanceWhenContainedInInstancesOfClasses(containerTypes: NSArray<typeof NSObject>): NYTPhotosOverlayView; // inherited from UIAppearance
+	static appearanceWhenContainedInInstancesOfClasses(containerTypes: NSArray<typeof NSObject> | typeof NSObject[]): NYTPhotosOverlayView; // inherited from UIAppearance
 
 	static new(): NYTPhotosOverlayView; // inherited from NSObject
 
@@ -554,11 +554,11 @@ declare class NYTScalingImageView extends UIScrollView {
 
 	static appearanceForTraitCollectionWhenContainedIn(trait: UITraitCollection, ContainerClass: typeof NSObject): NYTScalingImageView; // inherited from UIAppearance
 
-	static appearanceForTraitCollectionWhenContainedInInstancesOfClasses(trait: UITraitCollection, containerTypes: NSArray<typeof NSObject>): NYTScalingImageView; // inherited from UIAppearance
+	static appearanceForTraitCollectionWhenContainedInInstancesOfClasses(trait: UITraitCollection, containerTypes: NSArray<typeof NSObject> | typeof NSObject[]): NYTScalingImageView; // inherited from UIAppearance
 
 	static appearanceWhenContainedIn(ContainerClass: typeof NSObject): NYTScalingImageView; // inherited from UIAppearance
 
-	static appearanceWhenContainedInInstancesOfClasses(containerTypes: NSArray<typeof NSObject>): NYTScalingImageView; // inherited from UIAppearance
+	static appearanceWhenContainedInInstancesOfClasses(containerTypes: NSArray<typeof NSObject> | typeof NSObject[]): NYTScalingImageView; // inherited from UIAppearance
 
 	static new(): NYTScalingImageView; // inherited from NSObject
 

@@ -13,6 +13,7 @@ build/
 !src/platforms/ios/typings/FLAnimatedImage.d.ts
 demo/*.d.ts
 demo/app/*.d.ts
+demo/app/*.js
 !demo/references.d.ts
 demo/lib
 demo/platforms
