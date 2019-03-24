@@ -2,106 +2,70 @@
 [![npm](https://img.shields.io/npm/dt/nativescript-photoviewer.svg?label=npm%20downloads)](https://www.npmjs.com/package/nativescript-photoviewer)
 
 # NativeScript PhotoViewer
-A simple image-viewer/gallery component for NativeScript. 
+A simple photo-viewer/gallery component for NativeScript.
 
-iOS | Android
---- | --- 
-[NYTPhotoViewer](https://github.com/NYTimes/NYTPhotoViewer) | [ImageGallery](https://github.com/lawloretienne/ImageGallery/)
-
-
-Since the plugin is based on two different libraries for two different platforms their features are also somewhat diferent:
-
-"NYTPhotoViewer" (iOS) is a slideshow and image viewer that includes double-tap to zoom, captions, support for multiple images, interactive flick to dismiss, animated zooming presentation, and more.
-
-"ImageGallery" (Android) is a gallery used to host an array of external images (array of urls). It supports multiple images, double-tap to zoom and a gallery view. 
-
-## Installation
-Run  `npm i nativescript-photoviewer` in your ROOT directory of your project.
+**BREAKING CHANGES AS OF VERSION 2.0.0** - Read below for the new instructions
 
 ## Limitations
-Captions only available on iOS. Android only supports array of string urls as datasource. 
+ 
+Since the plugin is based on two different libraries for two different platforms their features are also somewhat diferent:
+
+Platform | Remote images (url) | Local images (resource) | Titles/Credits | Album View | Color Palette
+--- | --- | --- | --- | --- | --- | --- |
+iOS | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_multiplication_x: | :heavy_multiplication_x:
+Android | :heavy_check_mark: | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_check_mark: | :heavy_check_mark: 
+
+*If anyone has tips on a better android library that has same or similar features to the iOS, let us know.*
+
+## Installation
+Run  `tns plugin add nativescript-photoviewer` in your root directory of your project.
 
 ## Usage
-The usage is very simple. Require "nativescript-photoviewer" module and create a instance of it. Call the `showViewer(array)` function to present the photoViewer. 
-The `showViewer(ARRAY)` function accepts a two parameters on iOS and one on Android. The first one is allways an Array. The Array can contain one, or a mixture, of the following types:
-- String URLs that point to external images (iOS & Android)
-- Custom defined objects that contain image-data (image/imageURL, title, summary, credit) (iOS only)
-- Objects that conform to the `NYTPhoto` protocol (see the cocoapod documentation for more info - very similar to the above option) (iOS only)
-
-When using the second option, properties that one can use are defined below in the second example. The `image` conforms to the UIImage object, while the `imageURL` is a string containing the URL of the image. If `imageURL` is set, then `image` is ignored. 
-You can also customize fontFamily, fontSize and color of the caption texts (iOS). FontFamily applies to all captions, size and color are caption-specific.  
-
-**Properties Android (Optional):**
-- `startIndex` (number): Optional index to start the gallery from (Fullscreen Image gallery only)
-- `showAlbum` (boolean): Set to `true` if you want to show the album first, otherwise `false` if you want to show fullscreen slides directly. 
-- `paletteType` (string): Optional string value telling the fullscreen image gallery what type of background color palette to use (`VIBRANT`, `LIGHT_VIBRANT`, `DARK_VIBRANT`, `MUTED`, `LIGHT_MUTED`, `DARK_MUTED`)
-
-**Properties iOS (Optional):**
-- `startIndex`: Optional index to start the gallery from (Fullscreen Image gallery only)
-- `completionCallback` Optional function to run after the gallery has finished loading images and is visible
-- `fontFamily` (string): Font familiy to use for caption and titles
-- `titleFontSize` (number): Font-size for title
-- `summaryFontSize` (number): Font-size for summary-title
-- `creditFontSize` (number): Font-size for credits
-- `titleColor` (UIColor): Title color
-- `summaryColor` (UIColor): Summary-title color
-- `creditColor` (UIColor): Credits color
-
-**Methods:**
-- `showViewer(array)`: Method to call when you want to show the gallery. Mandatory param is an array of image urls or a custom image-object (iOS).
+It's best to take a look at the included demo app for advanced usages. Below is just a simple example on how to get the plugin running with minimal effort.
 
 ```typescript
 // Include the module
-const PhotoViewer = require("nativescript-photoviewer");
+import { PhotoViewer, PhotoViewerOptions, PaletteType, NYTPhotoItem } from "nativescript-photoviewer";
+var photoViewer: PhotoViewer; 
 
-// Show gallery from event
-export function openGallery(args: EventData){
-
-    let photoViewer = new PhotoViewer();
-
-    // Caption font-style settings (optional - iOS only)
-    photoViewer.fontFamily = "Avenir-Roman";
-    photoViewer.titleFontSize = 20;
-    photoViewer.summaryFontSize = 16;
-    photoViewer.creditFontSize = 14;
-    photoViewer.titleColor = new colorModule.Color("#fff").ios;
-    photoViewer.summaryColor = new colorModule.Color("#99813c").ios;
-    photoViewer.creditColor = new colorModule.Color("#fed700").ios;
-
-    photoViewer.completionCallback = galleryLoaded; // iOS only
-    photoViewer.paletteType = "LIGHT_MUTED"; // Android only
-    photoViewer.showAlbum = false; // Android only (true = shows album first, false = shows fullscreen gallery directly)
-    photoViewer.startIndex = 0; // start index for the fullscreen gallery
-
-    // Image from object (iOS only)
-    var testImage1 = {
-        imageURL: "https://somepage.com/image01.jpg",
-        title: "Image 1 title",
-        summary: "Image 1 summary",
-        credit: "Telerik"
-    };
-    var testImage2 = {
-        imageURL: "https://somepage.com/image01.jpg",
-        title: "Image 2 title",
-        summary: "Image 2 summary",
-        credit: "Telerik"
-    };
-
-    //Image from URLs (Android & iOS)
-    var imageFromURL1 = "https://somepage.com/image01.jpg";
-    var imageFromURL2 = "https://somepage.com/image02.jpg";
-
-    // Add to array and pass to showViewer
-    var myImages = [testImage1, testImage2, imageFromURL1, imageFromURL2];
-    photoViewer.showViewer(myImages);
+// Create a new instace of PhotoViewer in the onLoaded event. Very important to do the init here! 
+export function pageLoaded(args: EventData) {	
+    photoViewer = new PhotoViewer();
 }
 
-function galleryShowing(){
-    console.log(`gallery Loaded`);
+// Show gallery
+export function openGallery(args: EventData){
+
+    let image1 = "https://blabla/image1.jpg";
+    let image2 = "https://blabla/image2.jpg";
+    let image3 = "https://blabla/image3.jpg";
+    let image4 = "https://blabla/image4.jpg";
+    let myImages = [image1, image2, image3, image4];
+
+    // Example on how to use the options class (optional)
+    let photoviewerOptions: PhotoViewerOptions = {
+        startIndex: 0,
+        ios: {
+            completionCallback: galleryLoaded 
+        },
+        android: {
+            paletteType: PaletteType.DarkVibrant,
+            showAlbum: false
+        }
+    };
+	
+    photoViewer.showGallery(myImages, photoviewerOptions);
 }
 ```
 
 ## Changelog
+**2.0.0**
+- Code refactor to TypeScript, added typings.
+- Renamed `showViewer()` to `showGallery()` that now has 1 mandatory param and 1 optional param.
+- Fixed the issue where the image `datasource` would be GC'ed on iOS (important to init the plugin in the `onLoaded` event)
+- Updated demo app to reflect the changes, added album demo for Android.
+- Known issue: Gallery does not work when opened from another modal.
+
 **1.5.0**
 - Photo Viewer now works inside Modal Views, typo fix for 'completionCallback'. Big thanks to @Eonfuzz
 - Fixed the iOS datasource to be more strong referenced & the _android ref. Big thanks to @miex0r
@@ -122,8 +86,16 @@ function galleryShowing(){
 
 
 ## Screenshots
-![Demo PNG](ns-nytphoto-1.png) ![Demo PNG](ns-nytphoto-2.png)
-![Demo PNG](photoview-android-1.png) ![Demo PNG](photoview-android-2.png)
+![Demo PNG](/screenshots/ns-nytphoto-1.png) ![Demo PNG](/screenshots/ns-nytphoto-2.png)
+![Demo PNG](/screenshots/photoview-android-1.png) ![Demo PNG](/screenshots/photoview-android-2.png)
 
-## Help
-I will accept pull requests that improve this and assign credit.
+## Contribution
+I'll review & accept pull requests that improve the plugin and assign credit.
+
+
+## Credits
+
+The plugin is based on the following libraries:
+iOS | Android
+--- | --- 
+[NYTPhotoViewer](https://github.com/NYTimes/NYTPhotoViewer) | [ImageGallery](https://github.com/lawloretienne/ImageGallery/)
