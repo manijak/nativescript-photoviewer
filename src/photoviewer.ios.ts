@@ -15,6 +15,13 @@ export class PhotoViewer implements PhotoViewerBase {
 
     public showGallery(imagesArray: Array<string | NYTPhotoItem>, options?: PhotoViewerOptions) {
 
+        if(!options)
+            options = {};
+        if(!options.ios)
+            options.ios = {};
+        if(!options.android)
+            options.android = {};
+
         let photosArray = NSMutableArray.alloc<NYTPhoto>().init();
         let startIndex: number = options.startIndex || 0;
         let iosCompletionCallback = options.ios.completionCallback || null;
@@ -36,20 +43,19 @@ export class PhotoViewer implements PhotoViewerBase {
                 console.log("received photoItem", imageItem);
     
                 if(imageItem.imageURL)
-                    imageToAdd.image = getUIImage(imageItem.imageURL);
+                    imageToAdd.image = getUIImage(imageItem.imageURL); /** string URL to UIImage */
                 else
-                    imageToAdd.image = imageItem.image;
+                    imageToAdd.image = imageItem.image; /** UIImage */
                 
+                imageToAdd.placeholderImage = imageItem.placeholderImage;
                 imageToAdd.attributedCaptionTitle = this.attributedString(imageItem.title, titleColor, fontFamily, titleFontSize);
                 imageToAdd.attributedCaptionSummary = this.attributedString(imageItem.summary, summaryColor, fontFamily, summaryFontSize);
                 imageToAdd.attributedCaptionCredit = this.attributedString(imageItem.credit, creditColor, fontFamily, creditFontSize);
             }
             else if(typeof imageItem === 'string'){
                 console.log("received image url:", imageItem);
-                /* let img = getUIImage(imageItem);
-                imageToAdd.image = img; */
-                let imgData = getImageData(imageItem);
-                imageToAdd.imageData = imgData;
+                let img = getUIImage(imageItem);
+                imageToAdd.image = img;
             }
             else{
                 console.log("ERROR: Passed object is not a image path/url or NYTPhotoItem object!", imageItem);
