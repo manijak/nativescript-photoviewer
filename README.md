@@ -59,7 +59,7 @@ export function openGallery(args: EventData){
 ```
 
 ## Changelog
-**2.0.0**
+**2.0.1**
 - Code refactor to TypeScript, added typings.
 - Renamed `showViewer()` to `showGallery()` that now has 1 mandatory param and 1 optional param.
 - Fixed the issue where the image `datasource` would be GC'ed on iOS (important to init the plugin in the `onLoaded` event)
