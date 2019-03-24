@@ -11,7 +11,7 @@ A simple photo-viewer/gallery component for NativeScript.
 Since the plugin is based on two different libraries for two different platforms their features are also somewhat diferent:
 
 Platform | Remote images (url) | Local images (resource) | Titles/Credits | Album View | Color Palette
---- | --- | --- | --- | --- | --- | --- |
+--- | --- | --- | --- | --- | --- |
 iOS | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_multiplication_x: | :heavy_multiplication_x:
 Android | :heavy_check_mark: | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_check_mark: | :heavy_check_mark: 
 
@@ -96,6 +96,7 @@ I'll review & accept pull requests that improve the plugin and assign credit.
 ## Credits
 
 The plugin is based on the following libraries:
+
 iOS | Android
 --- | --- 
 [NYTPhotoViewer](https://github.com/NYTimes/NYTPhotoViewer) | [ImageGallery](https://github.com/lawloretienne/ImageGallery/)
