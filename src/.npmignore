@@ -1,5 +1,6 @@
 *.map
 *.ts
 !photoviewer.d.ts
+!platforms/ios/typings/*.ts
 tsconfig.json
 scripts
