@@ -6,10 +6,10 @@ import { PhotoViewer, PhotoViewerOptions, PaletteType, NYTPhotoItem } from "nati
 var photoViewer: PhotoViewer; 
 var mySpinner: ActivityIndicator;
 
-let image1 = "https://pixabay.com/get/ed35b3072bfd003ed1584d05fb0938c9bd22ffd41cb412439df8c371a2/house-4028391_1280.jpg";
-let image2 = "https://pixabay.com/get/e83cb6062cf0043ed1584d05fb0938c9bd22ffd41cb412439df8c27da3/iceland-1979445_1280.jpg";
-let image3 = "https://pixabay.com/get/ea35b00f2cf4063ed1584d05fb0938c9bd22ffd41cb412439df8c57da7/prague-3010407_1280.jpg";
-let image4 = "https://pixabay.com/get/ea36b90b2bfc073ed1584d05fb0938c9bd22ffd41cb412439df8c479a2/greece-3384386_1280.jpg";
+let image1 = "https://github.com/manijak/nativescript-photoviewer/raw/master/demo/app/res/01.jpg";
+let image2 = "https://github.com/manijak/nativescript-photoviewer/raw/master/demo/app/res/02.jpg";
+let image3 = "https://github.com/manijak/nativescript-photoviewer/raw/master/demo/app/res/03.jpg";
+let image4 = "https://github.com/manijak/nativescript-photoviewer/raw/master/demo/app/res/04.jpg";
 let myImages = [image1, image2, image3, image4];
 
 
