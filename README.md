@@ -63,7 +63,7 @@ export function openGallery(args: EventData){
 - Fixed Android & iOS promise handling, will resolve properly now when gallery is closed (both in vanilla tns and Angular).
 - Added Angular demo app `demo-ng`. 
 - Known issue 1: Gallery does not work when opened from another modal.
-- Known issue 2: When using Android Oreo, for some reason, images don't appear untill you zoom (on simulator, not tested on real device).
+- Known issue 2: When using Android Pie (9), for some reason, images don't appear untill you zoom (on simulator, not tested on real device).
 
 **2.0.2**
 - Code refactor to TypeScript, added typings.
