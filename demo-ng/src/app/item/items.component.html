@@ -1,0 +1,15 @@
+<ActionBar title="PhotoViewer Demo (Angular)" class="action-bar">
+</ActionBar>
+
+<GridLayout class="page">
+    <StackLayout>
+        <Label text="Tap buttons to see PhotoViewer in action" textWrap="true" margin="10,0,20,0"></Label>
+  
+        <Button text="Gallery with remote images" (tap)="showRemoteImages()"></Button>
+        <Button text="Album with remote images" (tap)="showRemoteImagesAlbum()" ios:visibility="collapsed"></Button>
+        <Button text="Gallery with local images (using NYTPhotoItem)" (tap)="showLocalImagesWithOptions()" android:visibility="collapsed"></Button>
+        <Button text="Gallery with mixed sources" (tap)="showMixedSourceImages()" android:visibility="collapsed"></Button>
+      </StackLayout>
+  
+      <ActivityIndicator #myspinner id="myspinner" busy="false" width="100" height="100"></ActivityIndicator>
+</GridLayout>
