@@ -1,11 +1,14 @@
+import * as application from "tns-core-modules/application";
 import { PhotoViewerOptions, PaletteType, PhotoViewer as PhotoViewerBase  } from ".";
 import { topmost } from 'tns-core-modules/ui/frame';
 
 declare const com: any;
 
 export class PhotoViewer implements PhotoViewerBase {
+    private static readonly CLOSE_PHOTO_REQUEST = 9191;
 
     private _android: android.content.Intent;
+    private _currentResolve: () => void;
     
     constructor() { }
 
@@ -19,26 +22,42 @@ export class PhotoViewer implements PhotoViewerBase {
         let startIndex: number = options.startIndex || 0;
         let paletteType: PaletteType = options.android.paletteType || null ;
         let showAlbum: boolean = options.android.showAlbum || false;
-        let activity: any = topmost().android.activity;
-    
-        if(!showAlbum)
-            this._android = new android.content.Intent(activity, com.etiennelawlor.imagegallery.library.activities.FullScreenImageGalleryActivity.class);
-        else
-            this._android = new android.content.Intent(activity, com.etiennelawlor.imagegallery.library.activities.ImageGalleryActivity.class);
-    
-        this._android.putStringArrayListExtra("images", photosArray);
-        this._android.putExtra("position", startIndex);
-    
-        if(paletteType)
-            this._android.putExtra("palette_color_type", getPaletteType(paletteType));
-    
-        activity.startActivity(this._android);
+        //let activity: any = topmost().android.activity;
+        let intent: android.content.Intent;
 
+        application.android.on("activityResult", this.onActivityResult);
+
+        
+        
         return new Promise<void>((resolve) => {
-            resolve();
+            this._currentResolve = resolve;
+
+            if(!showAlbum){
+                intent = new android.content.Intent(application.android.foregroundActivity, com.etiennelawlor.imagegallery.library.activities.FullScreenImageGalleryActivity.class);
+            }
+            else{
+                intent = new android.content.Intent(application.android.foregroundActivity, com.etiennelawlor.imagegallery.library.activities.ImageGalleryActivity.class);
+            }
+        
+            intent.putStringArrayListExtra("images", photosArray);
+            intent.putExtra("position", startIndex);
+        
+            if(paletteType){
+                intent.putExtra("palette_color_type", getPaletteType(paletteType));
+            }
+            
+            application.android.foregroundActivity.startActivityForResult(intent, PhotoViewer.CLOSE_PHOTO_REQUEST);
         });
     }
-    
+
+    private onActivityResult = (args: application.AndroidActivityResultEventData) => {
+        if (args.requestCode === PhotoViewer.CLOSE_PHOTO_REQUEST) {
+            this._currentResolve();
+            this._currentResolve = undefined;
+            application.android.off("activityResult", this.onActivityResult);
+        }
+    }
+   
 }
 
 function getPaletteType(paletteType: PaletteType){
