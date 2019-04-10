@@ -2,7 +2,7 @@
 import * as imageSource from "tns-core-modules/image-source/image-source";
 import { ActivityIndicator } from "tns-core-modules/ui/activity-indicator";
 import { EventData, Color, Page, isIOS } from "tns-core-modules/ui/page/page";
-import { PhotoViewer, PhotoViewerOptions, PaletteType, NYTPhotoItem } from "nativescript-photoviewer";
+import { PhotoViewer, PhotoViewerOptions, NYTPhotoItem, PaletteType } from "nativescript-photoviewer";
 var photoViewer: PhotoViewer; 
 var mySpinner: ActivityIndicator;
 
@@ -11,8 +11,6 @@ let image2 = "https://github.com/manijak/nativescript-photoviewer/raw/master/dem
 let image3 = "https://github.com/manijak/nativescript-photoviewer/raw/master/demo/app/res/03.jpg";
 let image4 = "https://github.com/manijak/nativescript-photoviewer/raw/master/demo/app/res/04.jpg";
 let myImages = [image1, image2, image3, image4];
-
-
 
 
 export function pageLoaded(args: EventData) {	

@@ -1,0 +1,19 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" loaded="onLoaded" class="page">
+    <Page.actionBar>
+        <ActionBar title="PhotoViewer Demo (JS)" icon="" class="action-bar">
+        </ActionBar>
+    </Page.actionBar>
+   
+    <GridLayout>
+        <StackLayout>
+            <Label text="Tap buttons to see PhotoViewer in action" textWrap="true" margin="10,0,20,0"/>
+
+            <Button text="Gallery with remote images" tap="showRemoteImages" />
+            <Button text="Album with remote images" tap="showRemoteImagesAlbum" ios:visibility="collapsed" />
+            <Button text="Gallery with local images (using NYTPhotoItem)" tap="showLocalImagesWithOptions" android:visibility="collapsed" />
+            <Button text="Gallery with mixed sources" tap="showMixedSourceImages" android:visibility="collapsed" />
+        </StackLayout>
+
+        <ActivityIndicator id="myspinner" busy="false" width="100" height="100" />
+  </GridLayout>
+</Page>
