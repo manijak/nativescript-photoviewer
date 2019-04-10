@@ -59,6 +59,10 @@ export function openGallery(args: EventData){
 ```
 
 ## Changelog
+**2.1.1**
+- Forgot to inlcude the photoviewer.d.ts file in the npm package. Add a reference to it in your `references.d.ts`.
+- Added a vanilla js demo app `demo-js`.
+
 **2.1.0**
 - Fixed Android & iOS promise handling, will resolve properly now when gallery is closed (both in vanilla tns and Angular).
 - Added Angular demo app `demo-ng`. 
