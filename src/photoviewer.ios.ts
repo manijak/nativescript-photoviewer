@@ -4,6 +4,9 @@ import { isFileOrResourcePath } from "tns-core-modules/utils/utils";
 import * as imageSource from "tns-core-modules/image-source/image-source";
 import * as frame from "tns-core-modules/ui/frame";
 
+import { PaletteType } from "./photoviewer.common";
+export * from './photoviewer.common';
+
 declare const NSAttributedString: any;
 
 export class PhotoViewer implements PhotoViewerBase {

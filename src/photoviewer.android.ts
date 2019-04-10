@@ -1,13 +1,12 @@
 import * as application from "tns-core-modules/application";
-import { PhotoViewerOptions, PaletteType, PhotoViewer as PhotoViewerBase  } from ".";
-import { topmost } from 'tns-core-modules/ui/frame';
+import { PhotoViewerOptions, PhotoViewer as PhotoViewerBase  } from ".";
+import { PaletteType } from "./photoviewer.common";
+export * from './photoviewer.common';
 
 declare const com: any;
 
 export class PhotoViewer implements PhotoViewerBase {
     private static readonly CLOSE_PHOTO_REQUEST = 9191;
-
-    private _android: android.content.Intent;
     private _currentResolve: () => void;
     
     constructor() { }
@@ -22,13 +21,10 @@ export class PhotoViewer implements PhotoViewerBase {
         let startIndex: number = options.startIndex || 0;
         let paletteType: PaletteType = options.android.paletteType || null ;
         let showAlbum: boolean = options.android.showAlbum || false;
-        //let activity: any = topmost().android.activity;
+        
         let intent: android.content.Intent;
-
         application.android.on("activityResult", this.onActivityResult);
 
-        
-        
         return new Promise<void>((resolve) => {
             this._currentResolve = resolve;
 
