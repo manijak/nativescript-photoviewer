@@ -56,6 +56,8 @@ function showRemoteImagesAlbum(args) {
             showAlbum: true
         }
     };
+
+    var myImages = [image1, image2, image3, image4];
     photoViewer.showGallery(myImages, photoviewerOptions).then(function () {
         console.log("Gallery closed...");
     });
