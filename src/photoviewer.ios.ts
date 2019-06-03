@@ -69,6 +69,9 @@ export class PhotoViewer implements PhotoViewerBase {
 
         this._dataSource = NYTPhotoViewerArrayDataSource.dataSourceWithPhotos(photosArray);
         const photosViewController = NYTPhotosViewController.alloc().initWithDataSourceInitialPhotoIndexDelegate(this._dataSource, startIndex, null);
+        if(options.ios.showShareButton == false){
+            photosViewController.rightBarButtonItem = null;
+        }
         frame.topmost().ios.controller.presentViewControllerAnimatedCompletion(photosViewController, true, iosCompletionCallback);
 
         return new Promise<void>((resolve) => {
