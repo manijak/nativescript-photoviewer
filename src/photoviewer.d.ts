@@ -60,6 +60,12 @@ export interface PhotoViewerOptions {
         creditColor?: UIColor;
 
         /**
+         * Show share button
+         * Default true  
+         */
+        showShareButton?: boolean;
+
+        /**
          * Optional function to run after the gallery has finished loading images and is visible
          */
         completionCallback?: () => void;
