@@ -49,7 +49,11 @@ export class ItemsComponent implements OnInit {
             ios: {
                 completionCallback: () => {
                     this.galleryLoaded();
-                }
+                },
+                titleForPhotoAtIndexTotalPhotoCountCallback: (photoIndex: number, totalPhotoCount: number):string => {
+                    return "Photo "+(photoIndex+1)+" of "+ totalPhotoCount;
+                },
+                showShareButton: false
             },
             android: {
                 paletteType: PaletteType.DarkVibrant,
@@ -184,6 +188,7 @@ export class ItemsComponent implements OnInit {
         /** We hide the spinner while the gallery is in focus */
         if(isIOS){
             this.indicator.busy = false;
+            this.photoViewer.updatePhotoAtIndex(0);
             console.log("hide spinner");
         }
     }

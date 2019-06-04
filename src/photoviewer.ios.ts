@@ -9,10 +9,13 @@ export * from './photoviewer.common';
 
 declare const NSAttributedString: any;
 
+let titleForPhotoAtIndexTotalPhotoCount: any;
+
 export class PhotoViewer implements PhotoViewerBase {
 
     private _dataSource: NYTPhotoViewerArrayDataSource;
     private _delegate: PhotoViewerDelegateImpl;
+    private photosViewController: NYTPhotosViewController; 
 
     constructor() { }
 
@@ -28,6 +31,7 @@ export class PhotoViewer implements PhotoViewerBase {
         let photosArray = NSMutableArray.alloc<NYTPhoto>().init();
         let startIndex: number = options.startIndex || 0;
         let iosCompletionCallback = options.ios.completionCallback || null;
+        titleForPhotoAtIndexTotalPhotoCount = options.ios.titleForPhotoAtIndexTotalPhotoCountCallback || null; 
     
         imagesArray.forEach((imageItem: string | NYTPhotoItem) => {
     
@@ -68,15 +72,16 @@ export class PhotoViewer implements PhotoViewerBase {
         });
 
         this._dataSource = NYTPhotoViewerArrayDataSource.dataSourceWithPhotos(photosArray);
-        const photosViewController = NYTPhotosViewController.alloc().initWithDataSourceInitialPhotoIndexDelegate(this._dataSource, startIndex, null);
+        this.photosViewController = NYTPhotosViewController.alloc().initWithDataSourceInitialPhotoIndexDelegate(this._dataSource, startIndex, null);
         if(options.ios.showShareButton == false){
-            photosViewController.rightBarButtonItem = null;
+            this.photosViewController.rightBarButtonItem = null;
         }
-        frame.topmost().ios.controller.presentViewControllerAnimatedCompletion(photosViewController, true, iosCompletionCallback);
+
+        frame.topmost().ios.controller.presentViewControllerAnimatedCompletion(this.photosViewController, true, iosCompletionCallback);
 
         return new Promise<void>((resolve) => {
             this._delegate = PhotoViewerDelegateImpl.initWithResolve(resolve);
-            photosViewController.delegate = this._delegate;
+            this.photosViewController.delegate = this._delegate;
         });
     }
 
@@ -87,6 +92,10 @@ export class PhotoViewer implements PhotoViewerBase {
         };
     
         return NSAttributedString.alloc().initWithStringAttributes(text || "", attributeOptions);
+    }
+
+    public updatePhotoAtIndex(index: number){
+        this.photosViewController.updatePhotoAtIndex(index);
     }
 }
 
@@ -159,6 +168,13 @@ class PhotoViewerDelegateImpl extends NSObject implements NYTPhotosViewControlle
         const delegate = PhotoViewerDelegateImpl.new() as PhotoViewerDelegateImpl;
         delegate._resolve = resolve;
         return delegate;
+    }
+
+    photosViewControllerTitleForPhotoAtIndexTotalPhotoCount(photosViewController: NYTPhotosViewController, photo: NYTPhoto, photoIndex: number, totalPhotoCount: number): string {
+        if(titleForPhotoAtIndexTotalPhotoCount != null)
+            return titleForPhotoAtIndexTotalPhotoCount(photoIndex, totalPhotoCount);
+        else 
+            return (photoIndex+1)+" of "+totalPhotoCount;
     }
 
     public photosViewControllerDidDismiss(photosViewController: NYTPhotosViewController) {

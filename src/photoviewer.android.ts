@@ -46,6 +46,10 @@ export class PhotoViewer implements PhotoViewerBase {
         });
     }
 
+    public updatePhotoAtIndex(index: number){
+        return null;
+    }
+
     private onActivityResult = (args: application.AndroidActivityResultEventData) => {
         if (args.requestCode === PhotoViewer.CLOSE_PHOTO_REQUEST) {
             this._currentResolve();

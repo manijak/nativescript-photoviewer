@@ -66,6 +66,11 @@ export interface PhotoViewerOptions {
         showShareButton?: boolean;
 
         /**
+         * Optionnal function to update the counter format (not display '1 of 8' per example )
+         */
+        titleForPhotoAtIndexTotalPhotoCountCallback? : (photoIndex: number, totalPhotoCount: number) => string; 
+
+        /**
          * Optional function to run after the gallery has finished loading images and is visible
          */
         completionCallback?: () => void;
@@ -122,4 +127,5 @@ export interface NYTPhotoItem {
 
 export class PhotoViewer {
     public showGallery(imagesArray: Array<string | NYTPhotoItem>, options?: PhotoViewerOptions): Promise<void>;
+    public updatePhotoAtIndex(index: number): void;
 }
