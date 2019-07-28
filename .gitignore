@@ -6,7 +6,6 @@
 .cloud
 .project
 tmp/
-typings/
 
 # Visual Studio Code
 .vscode/
@@ -25,11 +24,12 @@ yarn-error.log*
 src/*.d.ts
 src/platforms/android/*.aar
 build/
+dist/
 
 !src/photoviewer.d.ts
 !src/references.d.ts
-!src/platforms/ios/typings/NYTPhotoViewer.d.ts
-!src/platforms/ios/typings/FLAnimatedImage.d.ts
+!src/typings/objc!NYTPhotoViewer.d.ts
+!src/typings/objc!FLAnimatedImage.d.ts
 
 demo/*.d.ts
 demo/app/*.d.ts
