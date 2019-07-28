@@ -8,13 +8,21 @@ import { PaletteType } from "./photoviewer.common";
 export * from './photoviewer.common';
 
 declare const NSAttributedString: any;
+var _dataSource: NYTPhotoViewerArrayDataSource;
 
 export class PhotoViewer implements PhotoViewerBase {
 
-    private _dataSource: NYTPhotoViewerArrayDataSource;
+    public nativeView;
     private _delegate: PhotoViewerDelegateImpl;
 
-    constructor() { }
+    constructor() {
+        let photosArray = NSMutableArray.alloc<NYTPhoto>().init();
+        _dataSource = new NYTPhotoViewerArrayDataSource({photos: photosArray});
+     }
+
+    get ios(): any {
+        return this.nativeView;
+    }
 
     public showGallery(imagesArray: Array<string | NYTPhotoItem>, options?: PhotoViewerOptions) {
 
@@ -67,16 +75,16 @@ export class PhotoViewer implements PhotoViewerBase {
             photosArray.addObject(imageToAdd);
         });
 
-        this._dataSource = NYTPhotoViewerArrayDataSource.dataSourceWithPhotos(photosArray);
-        const photosViewController = NYTPhotosViewController.alloc().initWithDataSourceInitialPhotoIndexDelegate(this._dataSource, startIndex, null);
+        _dataSource = new NYTPhotoViewerArrayDataSource({photos: photosArray});
+        this.nativeView = NYTPhotosViewController.alloc().initWithDataSourceInitialPhotoIndexDelegate(_dataSource, startIndex, null);
         if(options.ios.showShareButton == false){
-            photosViewController.rightBarButtonItem = null;
+            this.nativeView.rightBarButtonItem = null;
         }
-        frame.topmost().ios.controller.presentViewControllerAnimatedCompletion(photosViewController, true, iosCompletionCallback);
+        frame.topmost().ios.controller.presentViewControllerAnimatedCompletion(this.nativeView, true, iosCompletionCallback);
 
         return new Promise<void>((resolve) => {
             this._delegate = PhotoViewerDelegateImpl.initWithResolve(resolve);
-            photosViewController.delegate = this._delegate;
+            this.nativeView.delegate = this._delegate;
         });
     }
 
