@@ -59,6 +59,10 @@ export function openGallery(args: EventData){
 ```
 
 ## Changelog
+
+**2.1.5**
+- Fix for iOS datasource issue (premature garbage collect) - caused images to dissapear when using gallery.
+
 **2.1.1**
 - Forgot to inlcude the photoviewer.d.ts file in the npm package. Add a reference to it in your `references.d.ts`.
 - Added a vanilla js demo app `demo-js`.
