@@ -1,8 +1,7 @@
 import { PhotoViewerOptions, NYTPhotoItem, PhotoViewer as PhotoViewerBase } from ".";
-import { Color } from "tns-core-modules/color";
-import { isFileOrResourcePath } from "tns-core-modules/utils/utils";
-import * as imageSource from "tns-core-modules/image-source/image-source";
-import * as frame from "tns-core-modules/ui/frame";
+import { Color } from "@nativescript/core";
+import { fromFileOrResource, isFileOrResourcePath } from "@nativescript/core/image-source";
+import { topmost } from '@nativescript/core/ui/frame';
 
 import { PaletteType } from "./photoviewer.common";
 export * from './photoviewer.common';
@@ -16,7 +15,7 @@ export class PhotoViewer implements PhotoViewerBase {
     private _delegate: PhotoViewerDelegateImpl;
 
     constructor() {
-        rootFrame = frame.Frame.topmost();
+        rootFrame = topmost();
         let photosArray = NSMutableArray.alloc<NYTPhoto>().init();
         _dataSource = new NYTPhotoViewerArrayDataSource({photos: photosArray});
      }
@@ -108,7 +107,7 @@ function getImageData(imageURL: string): NSData {
 function getUIImage(imageURL: string): UIImage {
     if(isFileOrResourcePath(imageURL)){
         console.log("image is file or resource path: ", imageURL);
-        return imageSource.fromFileOrResource(imageURL).ios;
+        return fromFileOrResource(imageURL).ios;
     }
     else{
         console.log("URL: ", imageURL);
