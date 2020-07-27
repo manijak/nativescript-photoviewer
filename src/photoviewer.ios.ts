@@ -9,13 +9,14 @@ export * from './photoviewer.common';
 
 declare const NSAttributedString: any;
 var _dataSource: NYTPhotoViewerArrayDataSource;
-
+var rootFrame;
 export class PhotoViewer implements PhotoViewerBase {
 
     public nativeView;
     private _delegate: PhotoViewerDelegateImpl;
 
     constructor() {
+        rootFrame = frame.Frame.topmost();
         let photosArray = NSMutableArray.alloc<NYTPhoto>().init();
         _dataSource = new NYTPhotoViewerArrayDataSource({photos: photosArray});
      }
@@ -80,7 +81,7 @@ export class PhotoViewer implements PhotoViewerBase {
         if(options.ios.showShareButton == false){
             this.nativeView.rightBarButtonItem = null;
         }
-        frame.topmost().ios.controller.presentViewControllerAnimatedCompletion(this.nativeView, true, iosCompletionCallback);
+        rootFrame.ios.controller.presentViewControllerAnimatedCompletion(this.nativeView, true, iosCompletionCallback);
 
         return new Promise<void>((resolve) => {
             this._delegate = PhotoViewerDelegateImpl.initWithResolve(resolve);
