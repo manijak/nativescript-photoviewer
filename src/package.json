@@ -3,11 +3,11 @@
   "description": "A simple Photo-viewer component for NativeScript based on NYTPhotoViewer pod for iOS and ImageGalleryViewer for Android.",
   "main": "photoviewer",
   "typings": "photoviewer.d.ts",
-  "version": "2.1.5",
+  "version": "3.0.0",
   "nativescript": {
     "platforms": {
-      "ios": "3.0.0",
-      "android": "3.0.0"
+      "ios": "6.5.2",
+      "android": "6.5.3"
     },
     "plugin": {
       "nan": "true",
@@ -80,8 +80,8 @@
   "readmeFilename": "README.md",
   "devDependencies": {
     "typescript": "~3.5.3",
-    "tns-core-modules": "~6.0.2",
-    "tns-platform-declarations": "~6.0.2",
+    "@nativescript/core": "~6.5.12",
+    "tns-platform-declarations": "~6.5.12",
     "tslint": "^5.18.0",
     "husky": "^3.0.1",
     "lint-staged": "^9.2.1",
