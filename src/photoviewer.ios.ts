@@ -1,21 +1,21 @@
 import { PhotoViewerOptions, NYTPhotoItem, PhotoViewer as PhotoViewerBase } from ".";
-import { Color } from "tns-core-modules/color";
-import { isFileOrResourcePath } from "tns-core-modules/utils/utils";
-import * as imageSource from "tns-core-modules/image-source/image-source";
-import * as frame from "tns-core-modules/ui/frame";
+import { Color } from "@nativescript/core";
+import { fromFileOrResource, isFileOrResourcePath } from "@nativescript/core/image-source";
+import { topmost } from '@nativescript/core/ui/frame';
 
 import { PaletteType } from "./photoviewer.common";
 export * from './photoviewer.common';
 
 declare const NSAttributedString: any;
 var _dataSource: NYTPhotoViewerArrayDataSource;
-
+var rootFrame;
 export class PhotoViewer implements PhotoViewerBase {
 
     public nativeView;
     private _delegate: PhotoViewerDelegateImpl;
 
     constructor() {
+        rootFrame = topmost();
         let photosArray = NSMutableArray.alloc<NYTPhoto>().init();
         _dataSource = new NYTPhotoViewerArrayDataSource({photos: photosArray});
      }
@@ -80,7 +80,7 @@ export class PhotoViewer implements PhotoViewerBase {
         if(options.ios.showShareButton == false){
             this.nativeView.rightBarButtonItem = null;
         }
-        frame.topmost().ios.controller.presentViewControllerAnimatedCompletion(this.nativeView, true, iosCompletionCallback);
+        rootFrame.ios.controller.presentViewControllerAnimatedCompletion(this.nativeView, true, iosCompletionCallback);
 
         return new Promise<void>((resolve) => {
             this._delegate = PhotoViewerDelegateImpl.initWithResolve(resolve);
@@ -107,7 +107,7 @@ function getImageData(imageURL: string): NSData {
 function getUIImage(imageURL: string): UIImage {
     if(isFileOrResourcePath(imageURL)){
         console.log("image is file or resource path: ", imageURL);
-        return imageSource.fromFileOrResource(imageURL).ios;
+        return fromFileOrResource(imageURL).ios;
     }
     else{
         console.log("URL: ", imageURL);

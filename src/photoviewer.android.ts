@@ -1,4 +1,4 @@
-import * as application from "tns-core-modules/application";
+import * as application from "@nativescript/core/application";
 import { PhotoViewerOptions, PhotoViewer as PhotoViewerBase  } from ".";
 import { PaletteType } from "./photoviewer.common";
 export * from './photoviewer.common';
