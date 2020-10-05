@@ -1,7 +1,5 @@
 import { PhotoViewerOptions, NYTPhotoItem, PhotoViewer as PhotoViewerBase } from ".";
-import { Color } from "@nativescript/core";
-import { fromFileOrResource, isFileOrResourcePath } from "@nativescript/core/image-source";
-import { topmost } from '@nativescript/core/ui/frame';
+import { Color, Frame, Utils, ImageSource } from "@nativescript/core";
 
 import { PaletteType } from "./photoviewer.common";
 export * from './photoviewer.common';
@@ -15,7 +13,7 @@ export class PhotoViewer implements PhotoViewerBase {
     private _delegate: PhotoViewerDelegateImpl;
 
     constructor() {
-        rootFrame = topmost();
+        rootFrame = Frame.topmost();
         let photosArray = NSMutableArray.alloc<NYTPhoto>().init();
         _dataSource = new NYTPhotoViewerArrayDataSource({photos: photosArray});
      }
@@ -51,7 +49,7 @@ export class PhotoViewer implements PhotoViewerBase {
             let creditColor = options.ios.creditColor || new Color("gray").ios;
     
             if(isNYTPhotoItem(imageItem)){
-                console.log("received photoItem", imageItem);
+                //console.log("received photoItem", imageItem);
     
                 if(imageItem.imageURL)
                     imageToAdd.image = getUIImage(imageItem.imageURL); /** string URL to UIImage */
@@ -64,7 +62,7 @@ export class PhotoViewer implements PhotoViewerBase {
                 imageToAdd.attributedCaptionCredit = this.attributedString(imageItem.credit, creditColor, fontFamily, creditFontSize);
             }
             else if(typeof imageItem === 'string'){
-                console.log("received image url:", imageItem);
+                //console.log("received image url:", imageItem);
                 let img = getUIImage(imageItem);
                 imageToAdd.image = img;
             }
@@ -105,12 +103,11 @@ function getImageData(imageURL: string): NSData {
 }
 
 function getUIImage(imageURL: string): UIImage {
-    if(isFileOrResourcePath(imageURL)){
-        console.log("image is file or resource path: ", imageURL);
-        return fromFileOrResource(imageURL).ios;
+    if(Utils.isFileOrResourcePath(imageURL)){
+        return ImageSource.fromFileOrResourceSync(imageURL).ios;
     }
     else{
-        console.log("URL: ", imageURL);
+        //console.log("URL: ", imageURL);
         let nsURL = NSURL.URLWithString(imageURL);
         let imageData = NSData.dataWithContentsOfURL(nsURL);
         return UIImage.imageWithData(imageData);
@@ -143,23 +140,8 @@ const NYTImage = (NSObject as any).extend({
     name: "NYTImage",
     protocols: [NYTPhoto]
 });
-/* 
-@ObjC(NYTPhoto)
-class NYTImage extends NSObject implements NYTPhoto {
 
-    static new(): NYTImage {
-        return <NYTImage>super.new();
-    }
-    
-    attributedCaptionCredit: NSAttributedString;
-    attributedCaptionSummary: NSAttributedString;
-    attributedCaptionTitle: NSAttributedString;
-    image: UIImage;
-    imageData: NSData;
-    placeholderImage: UIImage;
-}  */
-
-@ObjC(NYTPhotosViewControllerDelegate)
+@NativeClass()
 class PhotoViewerDelegateImpl extends NSObject implements NYTPhotosViewControllerDelegate {
     private _resolve: () => void;
 

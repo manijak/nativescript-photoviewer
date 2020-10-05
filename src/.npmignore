@@ -2,5 +2,15 @@
 *.ts
 !photoviewer.d.ts
 !platforms/ios/typings/*.ts
+*.png
+*.log
 tsconfig.json
-scripts
+tslint.json
+typings/
+scripts/*
+platforms/android/*
+!platforms/android/include.gradle
+!platforms/android/*.aar
+!platforms/android/*.jar
+dist/
+*.tgz

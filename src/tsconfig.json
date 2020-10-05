@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "declaration": true,
+    "target": "es2017",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "declaration": false,
     "removeComments": true,
     "noLib": false,
     "emitDecoratorMetadata": true,
@@ -18,11 +19,15 @@
     "noImplicitAny": false,
     "noImplicitReturns": true,
     "noImplicitUseStrict": false,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "plugins": [
+      {
+        "transform": "@nativescript/webpack/transformers/ns-transform-native-classes",
+        "type": "raw"
+      }
+    ]
   },
-  "exclude": [
-    "demo",
-    "node_modules"
-  ],
+  "exclude": ["demo", "node_modules"],
+  "include": ["../src", "**/*"],
   "compileOnSave": false
 }

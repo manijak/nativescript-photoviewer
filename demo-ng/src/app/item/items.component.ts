@@ -1,12 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from "@angular/core";
-import { ActivityIndicator } from "tns-core-modules/ui/activity-indicator";
-
+import { ActivityIndicator, isIOS, Color, EventData, Page, ImageSource } from "@nativescript/core";
 import { PhotoViewer, PhotoViewerOptions, PaletteType, NYTPhotoItem } from "nativescript-photoviewer";
-import { isIOS } from "tns-core-modules/platform/platform";
-import { Color } from "tns-core-modules/color/color";
-import { EventData } from "tns-core-modules/data/observable/observable";
-import { Page } from "tns-core-modules/ui/page/page";
-import { fromFile } from "tns-core-modules/image-source/image-source";
 
 let image1 = "https://github.com/manijak/nativescript-photoviewer/raw/master/demo/app/res/01.jpg";
 let image2 = "https://github.com/manijak/nativescript-photoviewer/raw/master/demo/app/res/02.jpg";
@@ -101,25 +95,25 @@ export class ItemsComponent implements OnInit {
         
 
         var testImage1: NYTPhotoItem = {
-            image: fromFile("~/images/01.jpg").ios,
+            image: ImageSource.fromFileSync("~/images/01.jpg").ios,
             title: "Image 1 title",
             summary: "Image 1 summary",
             credit: "Image 1 credits"
         };
         var testImage2: NYTPhotoItem = {
-            image: fromFile("~/images/02.jpg").ios,
+            image: ImageSource.fromFileSync("~/images/02.jpg").ios,
             title: "Image 2 title",
             summary: "Image 2 summary",
             credit: "Image 2 credits"
         };
         var testImage3: NYTPhotoItem = {
-            image: fromFile("~/images/03.jpg").ios,
+            image: ImageSource.fromFileSync("~/images/03.jpg").ios,
             title: "Image 3 title",
             summary: "Image 3 summary",
             credit: "Image 3 credits"
         };
         var testImage4: NYTPhotoItem = {
-            image: fromFile("~/images/04.jpg").ios,
+            image: ImageSource.fromFileSync("~/images/04.jpg").ios,
             title: "Image 4 title",
             summary: "Image 4 summary",
             credit: "Image 4 credits"
@@ -157,7 +151,7 @@ export class ItemsComponent implements OnInit {
             credit: "Credits..."
         };
         var testImage3: NYTPhotoItem = {
-            image: fromFile("~/images/03.jpg").ios,
+            image: ImageSource.fromFileSync("~/images/03.jpg").ios,
             title: "Local file converted to UIImage",
             summary: "image: imageSource.fromFile('~/images/03.jpg').ios",
             credit: "Credits..."

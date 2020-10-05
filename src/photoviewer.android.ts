@@ -1,4 +1,4 @@
-import * as application from "@nativescript/core/application";
+import { AndroidActivityResultEventData, Application } from "@nativescript/core";
 import { PhotoViewerOptions, PhotoViewer as PhotoViewerBase  } from ".";
 import { PaletteType } from "./photoviewer.common";
 export * from './photoviewer.common';
@@ -23,16 +23,16 @@ export class PhotoViewer implements PhotoViewerBase {
         let showAlbum: boolean = options.android.showAlbum || false;
         
         let intent: android.content.Intent;
-        application.android.on("activityResult", this.onActivityResult);
+        Application.android.on("activityResult", this.onActivityResult);
 
         return new Promise<void>((resolve) => {
             this._currentResolve = resolve;
 
             if(!showAlbum){
-                intent = new android.content.Intent(application.android.foregroundActivity, com.etiennelawlor.imagegallery.library.activities.FullScreenImageGalleryActivity.class);
+                intent = new android.content.Intent(Application.android.foregroundActivity, com.etiennelawlor.imagegallery.library.activities.FullScreenImageGalleryActivity.class);
             }
             else{
-                intent = new android.content.Intent(application.android.foregroundActivity, com.etiennelawlor.imagegallery.library.activities.ImageGalleryActivity.class);
+                intent = new android.content.Intent(Application.android.foregroundActivity, com.etiennelawlor.imagegallery.library.activities.ImageGalleryActivity.class);
             }
         
             intent.putStringArrayListExtra("images", photosArray);
@@ -42,15 +42,15 @@ export class PhotoViewer implements PhotoViewerBase {
                 intent.putExtra("palette_color_type", getPaletteType(paletteType));
             }
             
-            application.android.foregroundActivity.startActivityForResult(intent, PhotoViewer.CLOSE_PHOTO_REQUEST);
+            Application.android.foregroundActivity.startActivityForResult(intent, PhotoViewer.CLOSE_PHOTO_REQUEST);
         });
     }
 
-    private onActivityResult = (args: application.AndroidActivityResultEventData) => {
+    private onActivityResult = (args: AndroidActivityResultEventData) => {
         if (args.requestCode === PhotoViewer.CLOSE_PHOTO_REQUEST) {
             this._currentResolve();
             this._currentResolve = undefined;
-            application.android.off("activityResult", this.onActivityResult);
+            Application.android.off("activityResult", this.onActivityResult);
         }
     }
    

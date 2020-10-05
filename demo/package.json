@@ -1,20 +1,15 @@
 {
-	"nativescript": {
-		"id": "org.nativescript.photoviewer",
-		"tns-ios": {
-			"version": "6.0.1"
-		}
-	},
 	"dependencies": {
 		"nativescript-photoviewer": "file:../src/dist",
-		"tns-core-modules": "6.0.2"
+		"@nativescript/core": "7.0.0",
+		"@nativescript/webpack": "3.0.0"
 	},
 	"devDependencies": {
-		"tns-platform-declarations": "6.0.2",
-		"typescript": "3.5.3",
-		"nativescript-dev-webpack": "1.0.2"
+		"typescript": "3.9.7",
+		"@nativescript/types": "7.0.0"
 	},
 	"scripts": {
 		"build.plugin": "cd ../src && npm run build"
-	}
+	},
+	"main": "app.js"
 }

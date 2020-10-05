@@ -1,7 +1,12 @@
 
-import * as imageSource from "tns-core-modules/image-source/image-source";
-import { ActivityIndicator } from "tns-core-modules/ui/activity-indicator";
-import { EventData, Color, Page, isIOS } from "tns-core-modules/ui/page/page";
+import { 
+	ActivityIndicator,
+	EventData,
+	Color,
+	Page,
+	isIOS,
+	ImageSource
+} from "@nativescript/core";
 import { PhotoViewer, PhotoViewerOptions, NYTPhotoItem, PaletteType } from "nativescript-photoviewer";
 var photoViewer: PhotoViewer; 
 var mySpinner: ActivityIndicator;
@@ -81,25 +86,25 @@ export function showLocalImagesWithOptions(args: EventData){
 
 
 	var testImage1: NYTPhotoItem = {
-		image: imageSource.fromFile("~/res/01.jpg").ios,
+		image: ImageSource.fromFileSync("~/res/01.jpg").ios,
 		title: "Image 1 title",
 		summary: "Image 1 summary",
 		credit: "Image 1 credits"
 	};
 	var testImage2: NYTPhotoItem = {
-		image: imageSource.fromFile("~/res/02.jpg").ios,
+		image: ImageSource.fromFileSync("~/res/02.jpg").ios,
 		title: "Image 2 title",
 		summary: "Image 2 summary",
 		credit: "Image 2 credits"
 	};
 	var testImage3: NYTPhotoItem = {
-		image: imageSource.fromFile("~/res/03.jpg").ios,
+		image: ImageSource.fromFileSync("~/res/03.jpg").ios,
 		title: "Image 3 title",
 		summary: "Image 3 summary",
 		credit: "Image 3 credits"
 	};
 	var testImage4: NYTPhotoItem = {
-		image: imageSource.fromFile("~/res/04.jpg").ios,
+		image: ImageSource.fromFileSync("~/res/04.jpg").ios,
 		title: "Image 4 title",
 		summary: "Image 4 summary",
 		credit: "Image 4 credits"
@@ -135,7 +140,7 @@ export function showMixedSourceImages(args: EventData){
 		credit: "Credits..."
 	};
 	var testImage3: NYTPhotoItem = {
-		image: imageSource.fromFile("~/res/03.jpg").ios,
+		image: ImageSource.fromFileSync("~/res/03.jpg").ios,
 		title: "Local file converted to UIImage",
 		summary: "image: imageSource.fromFile('~/images/03.jpg').ios",
 		credit: "Credits..."
