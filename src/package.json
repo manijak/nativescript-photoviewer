@@ -3,7 +3,7 @@
   "description": "A simple Photo-viewer component for NativeScript based on NYTPhotoViewer pod for iOS and ImageGalleryViewer for Android.",
   "main": "photoviewer",
   "typings": "photoviewer.d.ts",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "nativescript": {
     "platforms": {
       "ios": "7.0.0",
