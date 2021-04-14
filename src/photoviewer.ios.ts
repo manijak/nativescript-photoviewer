@@ -6,16 +6,17 @@ export * from './photoviewer.common';
 
 declare const NSAttributedString: any;
 var _dataSource: NYTPhotoViewerArrayDataSource;
-var rootFrame;
+const background_queue = dispatch_get_global_queue(qos_class_t.QOS_CLASS_DEFAULT, 0);
+const main_queue = dispatch_get_current_queue();
 export class PhotoViewer implements PhotoViewerBase {
 
     public nativeView;
     private _delegate: PhotoViewerDelegateImpl;
-
+    private _finishedLoading: boolean = false;
+    private _didReload: boolean = false;
     constructor() {
-        rootFrame = Frame.topmost();
-        let photosArray = NSMutableArray.alloc<NYTPhoto>().init();
-        _dataSource = new NYTPhotoViewerArrayDataSource({photos: photosArray});
+        let photosArray = [];
+        _dataSource = NYTPhotoViewerArrayDataSource.alloc().initWithPhotos(photosArray);
      }
 
     get ios(): any {
@@ -31,13 +32,13 @@ export class PhotoViewer implements PhotoViewerBase {
         if(!options.android)
             options.android = {};
 
-        let photosArray = NSMutableArray.alloc<NYTPhoto>().init();
+        let photosArray = [];
         let startIndex: number = options.startIndex || 0;
         let iosCompletionCallback = options.ios.completionCallback || null;
     
-        imagesArray.forEach((imageItem: string | NYTPhotoItem) => {
+        imagesArray.forEach((imageItem: string | NYTPhotoItem, index) => {
     
-            let imageToAdd = NYTImage.alloc().init();
+            let imageToAdd = NYTImage.alloc().init() as NYTImage;
     
             let fontFamily = options.ios.fontFamily || "HelveticaNeue";
             let titleFontSize = options.ios.titleFontSize || 16;
@@ -49,10 +50,20 @@ export class PhotoViewer implements PhotoViewerBase {
             let creditColor = options.ios.creditColor || new Color("gray").ios;
     
             if(isNYTPhotoItem(imageItem)){
-                //console.log("received photoItem", imageItem);
-    
+                //console.log("received photoItem", imageItem);    
                 if(imageItem.imageURL)
-                    imageToAdd.image = getUIImage(imageItem.imageURL); /** string URL to UIImage */
+                    dispatch_async(background_queue, ()=>{
+                        imageToAdd.image = getUIImage(imageItem.imageURL); /** string URL to UIImage */
+                        if(index == imagesArray.length - 1){
+                            dispatch_async(main_queue, ()=>{
+                                this._finishedLoading = true;
+                                if(this.nativeView){
+                                    this.nativeView.reloadPhotosAnimated(false);
+                                    this._didReload = true;
+                                }
+                            })
+                        }
+                    });
                 else
                     imageToAdd.image = imageItem.image; /** UIImage */
                 
@@ -62,23 +73,46 @@ export class PhotoViewer implements PhotoViewerBase {
                 imageToAdd.attributedCaptionCredit = this.attributedString(imageItem.credit, creditColor, fontFamily, creditFontSize);
             }
             else if(typeof imageItem === 'string'){
-                //console.log("received image url:", imageItem);
-                let img = getUIImage(imageItem);
-                imageToAdd.image = img;
+                dispatch_async(background_queue, ()=>{
+                    let img = getUIImage(imageItem);
+                    imageToAdd.image = img;
+                    if(index == imagesArray.length - 1){
+                        dispatch_async(main_queue, ()=>{
+                            this._finishedLoading = true;
+                            if(this.nativeView){
+                                this.nativeView.reloadPhotosAnimated(false);
+                                this._didReload = true;
+                            }
+                        })
+                    }
+                });
             }
             else{
                 console.log("ERROR: Passed object is not a image path/url or NYTPhotoItem object!", imageItem);
             }
 
-            photosArray.addObject(imageToAdd);
+            photosArray.push(imageToAdd);
         });
 
-        _dataSource = new NYTPhotoViewerArrayDataSource({photos: photosArray});
+        _dataSource = NYTPhotoViewerArrayDataSource.alloc().initWithPhotos(photosArray);
         this.nativeView = NYTPhotosViewController.alloc().initWithDataSourceInitialPhotoIndexDelegate(_dataSource, startIndex, null);
+        // gonna trigger reload just in case if for some the images finished loading early
+        if(!this._didReload && this._finishedLoading){
+            if(!NSThread.isMainThread){
+                dispatch_async(main_queue, ()=>{
+                    this.nativeView.reloadPhotosAnimated(false);
+                    this._didReload = true;
+                })
+            }else {
+                this.nativeView.reloadPhotosAnimated(false);
+                this._didReload = true;
+            }
+        }
         if(options.ios.showShareButton == false){
             this.nativeView.rightBarButtonItem = null;
         }
-        rootFrame.ios.controller.presentViewControllerAnimatedCompletion(this.nativeView, true, iosCompletionCallback);
+        
+        this.topViewController.presentViewControllerAnimatedCompletion(this.nativeView, true, iosCompletionCallback);
 
         return new Promise<void>((resolve) => {
             this._delegate = PhotoViewerDelegateImpl.initWithResolve(resolve);
@@ -94,6 +128,50 @@ export class PhotoViewer implements PhotoViewerBase {
     
         return NSAttributedString.alloc().initWithStringAttributes(text || "", attributeOptions);
     }
+
+    
+      private static get rootViewController(): UIViewController | undefined {
+        const keyWindow = UIApplication.sharedApplication.keyWindow;
+        return keyWindow != null ? keyWindow.rootViewController : undefined;
+      }
+    
+      private get topViewController(): UIViewController | undefined {
+        const root = PhotoViewer.rootViewController;
+        if (root == null) {
+          return undefined;
+        }
+        return this.findTopViewController(root);
+      }
+    
+      private findTopViewController(
+        root: UIViewController
+      ): UIViewController | undefined {
+        const presented = root.presentedViewController;
+        if (presented != null) {
+          return this.findTopViewController(presented);
+        }
+        if (root instanceof UISplitViewController) {
+          const last = root.viewControllers.lastObject;
+          if (last == null) {
+            return root;
+          }
+          return this.findTopViewController(last);
+        } else if (root instanceof UINavigationController) {
+          const top = root.topViewController;
+          if (top == null) {
+            return root;
+          }
+          return this.findTopViewController(top);
+        } else if (root instanceof UITabBarController) {
+          const selected = root.selectedViewController;
+          if (selected == null) {
+            return root;
+          }
+          return this.findTopViewController(selected);
+        } else {
+          return root;
+        }
+      }
 }
 
 
@@ -118,31 +196,38 @@ function isNYTPhotoItem(item: any): item is NYTPhotoItem {
     return typeof item.image === 'object' || typeof item.imageURL === 'string';
 }
 
-const NYTImage = (NSObject as any).extend({
-    get image() { return this.super.image; },
-    set image(value) { this.super.image = value; },
+@NativeClass()
+class NYTImage extends NSObject implements NYTPhoto {
+    public static ObjCProtocols = [NYTPhoto];
+    private _image;
+    private _imageData;
+    private _placeholderImage;
+    private _attributedCaptionTitle;
+    private _attributedCaptionSummary;
+    private _attributedCaptionCredit;
+    get image() { return this._image; }
+    set image(value) { this._image = value; }
 
-    get imageData() { return this.super.imageData; },
-    set imageData(value) { this.super.imageData = value; },
+    get imageData() { return this._imageData; }
+    set imageData(value) { this._imageData = value; }
 
-    get placeholderImage() { return this.super.placeholderImage; },
-    set placeholderImage(value) { this.super.placeholderImage = value; },
+    get placeholderImage() { return this._placeholderImage; }
+    set placeholderImage(value) { this._placeholderImage = value; }
 
-    get attributedCaptionTitle() { return this.super.attributedCaptionTitle; },
-    set attributedCaptionTitle(value) { this.super.attributedCaptionTitle = value; },
+    get attributedCaptionTitle() { return this._attributedCaptionTitle; }
+    set attributedCaptionTitle(value) { this._attributedCaptionTitle = value; }
 
-    get attributedCaptionSummary() { return this.super.attributedCaptionSummary; },
-    set attributedCaptionSummary(value) { this.super.attributedCaptionSummary = value; },
+    get attributedCaptionSummary() { return this._attributedCaptionSummary; }
+    set attributedCaptionSummary(value) { this._attributedCaptionSummary = value; }
 
-    get attributedCaptionCredit() { return this.super.attributedCaptionCredit; },
-    set attributedCaptionCredit(value) { this.super.attributedCaptionCredit = value; }
-}, {
-    name: "NYTImage",
-    protocols: [NYTPhoto]
-});
+    get attributedCaptionCredit() { return this._attributedCaptionCredit; }
+    set attributedCaptionCredit(value) { this._attributedCaptionCredit = value; }
+}
+
 
 @NativeClass()
 class PhotoViewerDelegateImpl extends NSObject implements NYTPhotosViewControllerDelegate {
+    public static ObjCProtocols = [NYTPhotosViewControllerDelegate];
     private _resolve: () => void;
 
     public static initWithResolve(resolve: () => void): PhotoViewerDelegateImpl {
@@ -150,6 +235,7 @@ class PhotoViewerDelegateImpl extends NSObject implements NYTPhotosViewControlle
         delegate._resolve = resolve;
         return delegate;
     }
+    
 
     public photosViewControllerDidDismiss(photosViewController: NYTPhotosViewController) {
         this._resolve();
