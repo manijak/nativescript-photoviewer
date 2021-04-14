@@ -4,8 +4,6 @@
 # NativeScript PhotoViewer
 A simple photo-viewer/gallery component for NativeScript.
 
-**BREAKING CHANGES AS OF VERSION 2.0.0** - Read below for the new instructions
-
 ## Limitations
  
 Since the plugin is based on two different libraries for two different platforms their features are also somewhat diferent:
@@ -59,6 +57,11 @@ export function openGallery(args: EventData){
 ```
 
 ## Changelog
+
+**3.0.0**
+- NS7/8 support for iOS. Android part of this plugin does not work, PRs are welcome.
+- Might be better to combine [Nativescript-Carousel](https://github.com/manijak/nativescript-carousel) and [Nativescript-ImageZoom](https://github.com/triniwiz/nativescript-image-zoom) in a modal, to create a more powerful photo viewer and give you more control. 
+
 
 **2.1.5**
 - Fix for iOS datasource issue (premature garbage collect) - caused images to dissapear when using gallery.
