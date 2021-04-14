@@ -8,12 +8,19 @@ A simple photo-viewer/gallery component for NativeScript.
  
 Since the plugin is based on two different libraries for two different platforms their features are also somewhat diferent:
 
-Platform | Remote images (url) | Local images (resource) | Titles/Credits | Album View | Color Palette
---- | --- | --- | --- | --- | --- |
-iOS | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark: | :heavy_multiplication_x: | :heavy_multiplication_x:
-Android | :heavy_check_mark: | :heavy_multiplication_x: | :heavy_multiplication_x: | :heavy_check_mark: | :heavy_check_mark: 
+Platform | State | Remote images (url) | Local images (resource) | Titles/Credits | Album View | Color Palette
+--- | --- | --- | --- | --- | --- | --- |
+iOS | :white_check_mark: | :white_check_mark: | :white_check_mark: | :white_check_mark: | :x: | :x:
+Android | :x: (Broken) | :white_check_mark: | :x: | :x: | :white_check_mark: | :white_check_mark: 
 
 *If anyone has tips on a better android library that has same or similar features to the iOS, let us know.*
+
+## Latest version
+
+**3.0.0**
+- NS7/8 support for iOS. Android part of this plugin does not work, PRs are welcome.
+- Might be better to combine [Nativescript-Carousel](https://github.com/manijak/nativescript-carousel) and [Nativescript-ImageZoom](https://github.com/triniwiz/nativescript-image-zoom) in a modal, to create a more powerful photo viewer and give you more control. 
+
 
 ## Installation
 Run  `tns plugin add nativescript-photoviewer` in your root directory of your project.
