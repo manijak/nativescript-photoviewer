@@ -18,7 +18,7 @@
     "rxjs": "~6.3.0",
     "zone.js": "~0.8.26",
     "@nativescript/core": "7.0.0",
-    "@nativescript/webpack": "3.0.0",
+    "@nativescript/webpack": "5.0.12",
     "@nativescript/angular": "10.0.0"
   },
   "devDependencies": {
